@@ -2,9 +2,26 @@ nerdtalk.directive('ntShare', [function() {
 
     return {
 
-        link: function(scope, el) {
+        scope: {url: "@ntShare"},
+        link: function(scope, el, attr) {
 
-            var shareLink;
+            var init = function() {
+
+                addEventListener();
+            };
+
+            var addEventListener = function() {
+
+                el.on('mousedown', function(e) {
+
+                    e.stopPropagation();
+
+                    window.open(scope.url, '', 'width=550,height=266');
+
+                });
+            };
+
+            init();
         }
     }
 }])
