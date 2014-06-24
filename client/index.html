@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="nerdtalk">
 <head>
     <title></title>
 
@@ -13,20 +13,41 @@
 </head>
 <body>
 
-<div id="content-container">
+<div id="app-view" ng-controller="AppController">
 
-    <div id="side-content" class="column">
+    <div id="side-bar-view" ng-controller="SideBarViewController" class="column">
 
         <div class="spacer"></div>
+        <div ng-include="sideMenuView.template.url" class="side-menu"></div>
 
     </div>
 
-    <div id="main-content" class="column"></div>
+    <div id="main-view" class="column" ng-view></div>
 
 </div>
 
 
+<!--Libraries-->
 <script src="lib/angular/angular.js"></script>
+<script src="lib/angular-route/angular-route.js"></script>
+<script src="lib/angular-sanitize/angular-sanitize.js"></script>
+<script src="lib/angular-mocks/angular-mocks.js"></script>
+
+<!--Application-->
+
+<script src="app.js"></script>
+
+<!--Commom-->
+<script src="modules/common/controllers/app.controller.js"></script>
+<script src="modules/common/controllers/side.bar.view.controller.js"></script>
+<script src="modules/common/directives/search.js"></script>
+
+<!--Posts-->
+<script src="modules/post/mocks/data/posts.mock.js"></script>
+<script src="modules/post/models/post.js"></script>
+<script src="modules/post/controllers/post.list.view.controller.js"></script>
+<script src="modules/post/directives/post.js"></script>
+
 
 </body>
 </html>

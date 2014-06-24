@@ -219,7 +219,7 @@ a.icon-gplus-state-iconcolor:hover {
     background-color: rgba(255, 0,153, 1.0);
 }
 
-#content-container {
+#app-view {
 
     width: 100%;
     height: 100%;
@@ -230,7 +230,7 @@ a.icon-gplus-state-iconcolor:hover {
     position: absolute;
 }
 
-#side-content {
+#side-bar-view {
 
     width: 400px;
     height: 100%;
@@ -245,28 +245,28 @@ a.icon-gplus-state-iconcolor:hover {
 
 
 
-#side-content .spacer {
+#side-bar-view .spacer {
 
     width: 100%;
     height: 438px;
 }
 
 
-#side-content .side-menu {
+#side-bar-view .side-menu {
 
     left: 0;
     bottom: 0;
     position: absolute;
 }
 
-#side-content .menu-links ul li {
+#side-bar-view .menu-links ul li {
 
     width: 100%;
     height: 60px;
 
 }
 
-#side-content .menu-links ul li a {
+#side-bar-view .menu-links ul li a {
 
     width: 100%;
     height: 100%;
@@ -279,37 +279,37 @@ a.icon-gplus-state-iconcolor:hover {
     text-decoration: none;
 }
 
-#side-content .menu-social ul {
+#side-bar-view .menu-social ul {
     font-size: 0;
     background-color: rgb(31, 31, 31);
 }
 
-#side-content .menu-social ul {
+#side-bar-view .menu-social ul {
 
     background-color: rgb(31, 31, 31);
 }
 
-#side-content .menu-social ul li {
+#side-bar-view .menu-social ul li {
 
     width: 60px;
     height: 60px;
 }
 
 
-#side-content .menu-social ul li:last-child {
+#side-bar-view .menu-social ul li:last-child {
 
     width: 220px;
     background-color: inherit;
 }
 
-#side-content .menu-social ul li:last-child div {
+#side-bar-view .menu-social ul li:last-child div {
 
     width: 100%;
     height: 100%;
     display: table;
 }
 
-#side-content .menu-social ul li a {
+#side-bar-view .menu-social ul li a {
 
     padding: 0;
     margin: 0;
@@ -317,14 +317,14 @@ a.icon-gplus-state-iconcolor:hover {
     height: 100%;
 }
 
-#side-content .menu-social ul li:last-child a {
+#side-bar-view .menu-social ul li:last-child a {
 
     text-align: center;
     vertical-align: middle;
     display: table-cell;
 }
 
-#side-content .menu-social ul li:nth-last-child(1) a, a:link, a:visited, a:active {
+#side-bar-view .menu-social ul li:nth-last-child(1) a, a:link, a:visited, a:active {
 
     font-size: 18px;
     text-decoration: none;
@@ -332,14 +332,14 @@ a.icon-gplus-state-iconcolor:hover {
     background-color: rgba(255, 0, 153, 0.0);
 }
 
-#side-content .menu-social ul li:nth-last-child(1) a:hover {
+#side-bar-view .menu-social ul li:nth-last-child(1) a:hover {
 
     color: rgba(255, 255, 255, 1.0);
     background-color: rgba(255, 0, 153, 1.0);
 }
 
 
-#side-content .search {
+#side-bar-view .search {
 
     padding: 0;
     margin: 0;
@@ -351,7 +351,7 @@ a.icon-gplus-state-iconcolor:hover {
     /*white-space: nowrap;*/
 }
 
-#side-content .search input[name=q] {
+#side-bar-view .search input[name=q] {
 
     margin: 0;
     width: 100%;
@@ -366,14 +366,14 @@ a.icon-gplus-state-iconcolor:hover {
     box-sizing: border-box;
 }
 
-#side-content .search-state-active input[name=q] {
+#side-bar-view .search-state-active input[name=q] {
 
     color: #000;
     background: url("../img/icon-search-pink-sm.png") rgb(255, 255, 255) no-repeat 360px;
 
 }
 
-#main-content {
+#main-view {
 
     width: 100%;
     height: 100%;
@@ -412,6 +412,8 @@ a.icon-gplus-state-iconcolor:hover {
     display: inline-table;
     vertical-align: top;
     position: relative;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #posts .post:nth-child(1) {
@@ -475,7 +477,7 @@ a.icon-gplus-state-iconcolor:hover {
     white-space: normal;
 }
 
-#posts .post .content p {
+#posts .post .content .html {
 
     font-size: 16px;
     font-weight: 200;
@@ -522,7 +524,7 @@ a.icon-gplus-state-iconcolor:hover {
 
 #posts .post-state-active .content p {
 
-    font-weight: 400;
+    /*font-weight: 400;*/
     opacity: 1.0;
 }
 

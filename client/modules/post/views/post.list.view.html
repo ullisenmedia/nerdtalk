@@ -1,0 +1,41 @@
+<div id="posts">
+
+    <div ng-repeat="post in posts" nt-post class="post">
+
+        <div class="image-mask">
+            <img ng-src="{{post.image}}">
+        </div>
+
+        <div class="menu menu-horizontal menu-social" skin-part="shareMenu">
+            <ul>
+                <li skin-part="facebookButton">
+                    <a href="#" id="facebookButton" class="icon icon-facebook-white icon-facebook-state-iconcolor" skin-part="facebookButton"></a>
+                </li>
+                <li>
+                    <a href="#" class="icon icon-twitter-white icon-twitter-state-iconcolor" skin-part="twitterButton"></a>
+                </li>
+                <li>
+                    <a href="#" class="icon icon-gplus-white icon-gplus-state-iconcolor" skin-part="gplusButton"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+
+            <h2>{{post.title}}</h2>
+
+            <span class="time">{{post.published_at}}</span>
+
+            <div ng-bind-html="post.html" class="html"></div>
+
+        </div>
+
+        <div class="comments">12</div>
+
+    </div>
+
+    <div class="spacer"></div>
+
+</div>
+
+</div>
