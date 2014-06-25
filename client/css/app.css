@@ -62,12 +62,15 @@ a:hover {text-decoration: underline;}
     -webkit-transition-property: color,background;
     -webkit-transition-duration: .1s,.3s;
     -webkit-transition-timing-function: ease-out;
+
     -moz-transition-property: color,background;
     -moz-transition-duration: .1s,.3s;
     -moz-transition-timing-function: ease-out;
+
     -o-transition-property: color,background;
     -o-transition-duration: .1s,.3s;
     -o-transition-timing-function: ease-out;
+
     transition-property: color,background;
     transition-duration: .1s,.3s;
     transition-timing-function: ease-out;
@@ -201,17 +204,22 @@ a.icon-gplus-state-iconcolor:hover {
 
 .menu-pink ul li:nth-child(1) a {
 
-    background-color: rgba(255, 0, 153, 0.4);
+    background-color: rgba(255, 0, 153, 0.3);
 }
 
 .menu-pink ul li:nth-child(2) a {
 
-    background-color: rgba(255, 0, 153, 0.6);
+    background-color: rgba(255, 0, 153, 0.5);
 }
 
 .menu-pink  ul li:nth-child(3) a {
 
-    background-color: rgba(255, 0,153, 0.8);
+    background-color: rgba(255, 0,153, 0.7);
+}
+
+.menu-pink  ul li:nth-child(4) a {
+
+    background-color: rgba(255, 0,153, 0.9);
 }
 
 .menu-pink  ul li a:hover {
@@ -533,6 +541,17 @@ a.icon-gplus-state-iconcolor:hover {
     font-weight: 400;
 }
 
+#post-view {
+
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 400px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
 #post {
 
     width: 720px;
@@ -542,8 +561,19 @@ a.icon-gplus-state-iconcolor:hover {
     background-color: #000;
     top: 0;
     left: 0;
+    /*left: -800px;*/
     position: absolute;
     z-index: 3;
+}
+
+.post-animate-in {
+
+    left: 0 !important;
+}
+
+.post-animate-out {
+
+    left: -800px !important;
 }
 
 #post .header {
@@ -593,15 +623,15 @@ a.icon-gplus-state-iconcolor:hover {
 #post .menu-vertical {
 
     top: 0;
-    right: -80px;
+    right: -60px;
     position: absolute;
     background-color: #000;
 }
 
 #post .menu-vertical ul li a {
 
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     color: #fff;
     text-align: center;
     vertical-align: middle;
@@ -641,4 +671,85 @@ a.icon-gplus-state-iconcolor:hover {
 /*#posts {*/
 
 /*opacity: 0.5;*/
+/*}*/
+
+
+/*@-webkit-keyframes slideInLeft {*/
+    /*0% {*/
+        /*opacity: 0;*/
+        /*-webkit-transform: translateX(-2000px);*/
+        /*transform: translateX(-2000px);*/
+    /*}*/
+
+    /*100% {*/
+        /*-webkit-transform: translateX(0);*/
+        /*transform: translateX(0);*/
+    /*}*/
+/*}*/
+
+/*@keyframes slideInLeft {*/
+    /*0% {*/
+        /*opacity: 0;*/
+        /*-webkit-transform: translateX(-2000px);*/
+        /*-ms-transform: translateX(-2000px);*/
+        /*transform: translateX(-2000px);*/
+    /*}*/
+
+    /*100% {*/
+        /*-webkit-transform: translateX(0);*/
+        /*-ms-transform: translateX(0);*/
+        /*transform: translateX(0);*/
+    /*}*/
+/*}*/
+
+/*.slideInLeft {*/
+    /*-webkit-animation-name: slideInLeft;*/
+    /*animation-name: slideInLeft;*/
+/*}*/
+
+
+/*@-webkit-keyframes slideOutLeft {*/
+    /*0% {*/
+        /*-webkit-transform: translateX(0);*/
+        /*transform: translateX(0);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 0;*/
+        /*-webkit-transform: translateX(-2000px);*/
+        /*transform: translateX(-2000px);*/
+    /*}*/
+/*}*/
+
+/*@keyframes slideOutLeft {*/
+    /*0% {*/
+        /*-webkit-transform: translateX(0);*/
+        /*-ms-transform: translateX(0);*/
+        /*transform: translateX(0);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 0;*/
+        /*-webkit-transform: translateX(-2000px);*/
+        /*-ms-transform: translateX(-2000px);*/
+        /*transform: translateX(-2000px);*/
+    /*}*/
+/*}*/
+
+/*.slideOutLeft {*/
+    /*-webkit-animation-name: slideOutLeft;*/
+    /*animation-name: slideOutLeft;*/
+/*}*/
+
+/*@-webkit-keyframes slideOutRight {*/
+    /*0% {*/
+        /*-webkit-transform: translateX(0);*/
+        /*transform: translateX(0);*/
+    /*}*/
+
+    /*100% {*/
+        /*opacity: 0;*/
+        /*-webkit-transform: translateX(2000px);*/
+        /*transform: translateX(2000px);*/
+    /*}*/
 /*}*/

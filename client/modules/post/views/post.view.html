@@ -1,48 +1,49 @@
-<div id="post">
+<div id="post" nt-post-view>
 
     <div class="header">
         <img src="http://www.w8themes.com/wp-content/uploads/2013/11/Free-Wallpaper-For-Android.png">
 
         <div class="info">
 
-            <h2>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. dolor sit amet. Lorem ipsum dolor sit amet</h2>
-            <span>Posted JUL 22 2014</span>
+            <h2>{{post.title}}</h2>
+            <span>{{post.published_at}}</span>
 
         </div>
 
     </div>
 
-
     <div class="menu menu-vertical menu-pink">
         <ul>
-            <li><a href="#">122</a></li>
+            <li><a href="#" skin-part="closeButton">x</a></li>
             <li><a href="#">&#10095;</a></li>
             <li><a href="#">&#10094;</a></li>
+            <li><a href="#" skin-part="commentsButtons">122</a></li>
         </ul>
     </div>
 
     <div class="menu menu-horizontal menu-social">
         <ul>
             <li>
-                <a href="#" class="icon icon-facebook-white icon-facebook-state-iconcolor"></a>
+                <a href="#"
+                   nt-share="http://www.facebook.com/sharer.php?u=http://google.com?q={{post.slug}}"
+                   class="icon icon-facebook-white icon-facebook-state-iconcolor"></a>
             </li>
             <li>
-                <a href="#" class="icon icon-twitter-white icon-twitter-state-iconcolor"></a>
+                <a href="#"
+                   nt-share="https://twitter.com/share??original_referer={{post.slug}}&source=tweetbutton&text={{post.title}}&url={{post.slug}}&via=ullisenmedia"
+                   class="icon icon-twitter-white icon-twitter-state-iconcolor"></a>
             </li>
             <li>
-                <a href="#" class="icon icon-gplus-white icon-gplus-state-iconcolor"></a>
+                <a href="#"
+                   nt-share="https://plus.google.com/share?url={{post.slug}}"
+                   class="icon icon-gplus-white icon-gplus-state-iconcolor"></a>
             </li>
         </ul>
     </div>
 
     <div class="content">
 
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet mi vel neque
-            convallis fermentum. Donec eget hendrerit neque, a luctus risus. Nulla non porttitor dolor.
-            Etiam vel semper justo. Vivamus bibendum felis nulla, vitae lacinia dui fringilla id. Phasellus
-            congue vulputate lacus vel molestie.
-        </p>
+        <div ng-bind-html="post.html" class="html"></div>
 
     </div>
 

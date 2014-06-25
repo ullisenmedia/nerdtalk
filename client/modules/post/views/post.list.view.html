@@ -1,6 +1,10 @@
 <div id="posts">
 
-    <div ng-repeat="post in posts" nt-post class="post">
+    <div ng-repeat="post in posts"
+         nt-post-list-item
+         nt-slug="post.slug"
+         nt-on-selected="onItemSelected(selectedItem);"
+         class="post">
 
         <div class="image-mask">
             <img ng-src="{{post.image}}">
@@ -8,7 +12,7 @@
 
         <div class="menu menu-horizontal menu-social" skin-part="shareMenu">
             <ul>
-                <li skin-part="facebookButton">
+                <li>
                     <a href="#"
                        nt-share="http://www.facebook.com/sharer.php?u=http://google.com?q={{post.slug}}"
                        class="icon icon-facebook-white icon-facebook-state-iconcolor"></a>

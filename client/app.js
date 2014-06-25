@@ -4,6 +4,7 @@ var nerdtalk = angular.module('nerdtalk', [
 
         'ngRoute',
         'ngSanitize',
+        'ngAnimate',
         'ngMockE2E'
     ])
     .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -13,6 +14,11 @@ var nerdtalk = angular.module('nerdtalk', [
 
                 templateUrl: 'modules/post/views/post.list.view.html',
                 controller: 'PostListViewController'
+            })
+            .when('/post/:slug', {
+
+                templateUrl: 'modules/post/views/post.view.html',
+                controller: 'PostViewController'
             });
 
 //        $locationProvider.html5Mode(true);

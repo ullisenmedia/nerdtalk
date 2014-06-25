@@ -1,25 +1,40 @@
 // Post List Controller
 
-nerdtalk.controller('PostListViewController', ['$scope', '$routeParams', '$log', 'Post', function($scope, $routeParams, $log, Post) {
+nerdtalk.controller('PostListViewController', ['$scope', '$routeParams', '$location', '$log', 'Post',
+    function ($scope, $routeParams, $location, $log, Post) {
 
-    var init = function() {
+        var init = function () {
 
-        listPosts();
-    };
+            listPosts();
+            addEventListeners();
+        };
 
-    var listPosts = function() {
+        var listPosts = function () {
 
-        Post.list()
-            .success(function(data) {
+            Post.list().then(
 
-                $scope.posts = data.posts;
-            })
-            .error(function(err) {
+                function onSuccess(data) {
 
-                $log.info(err);
-            })
-    };
+                    $scope.posts = data.posts;
+                },
 
-    init();
+                function onError(err) {
 
-}]);
+                    $log.error(err);
+                }
+            );
+        };
+
+        var addEventListeners = function () {
+
+            $scope.onItemSelected = function (selectedItem) {
+
+                $location.url('post/' + selectedItem.slug);
+
+            };
+        };
+
+
+        init();
+
+    }]);

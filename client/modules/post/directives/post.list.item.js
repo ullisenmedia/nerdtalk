@@ -1,9 +1,14 @@
-nerdtalk.directive('ntPost', ['$log', function($log) {
+nerdtalk.directive('ntPostListItem', ['$log', function($log) {
 
     return {
 
-        scope: {},
+        scope: {
+            slug: '=ntSlug',
+            onSelected: "&ntOnSelected"
+        },
         link: function(scope, el) {
+
+            // Variables
 
             var shareMenu = el.children("[skin-part='shareMenu']");
 
@@ -11,12 +16,27 @@ nerdtalk.directive('ntPost', ['$log', function($log) {
             var twitterButton = shareMenu.find('a').eq(1);
             var gplusButton = shareMenu.find('a').eq(2);
 
+            // Initialization Methods
+
             var init = function() {
 
                 addEventListeners();
             };
 
+            // Event Listeners
             var addEventListeners = function() {
+
+                el.on('click', function() {
+
+                    if(scope.onSelected) {
+
+                        scope.$apply(function() {
+
+                            scope.onSelected({selectedItem: {slug: scope.slug}});
+                        });
+
+                    }
+                });
 
                 el.on('mouseover', function(e) {
 
@@ -37,7 +57,6 @@ nerdtalk.directive('ntPost', ['$log', function($log) {
                     gplusButton.removeClass('icon-gplus-blk');
 
                 });
-
             };
 
             init();

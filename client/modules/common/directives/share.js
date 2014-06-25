@@ -1,9 +1,9 @@
-nerdtalk.directive('ntShare', [function() {
+nerdtalk.directive('ntShare', ['$window', function($window) {
 
     return {
 
         scope: {url: "@ntShare"},
-        link: function(scope, el, attr) {
+        link: function(scope, el) {
 
             var init = function() {
 
@@ -12,12 +12,14 @@ nerdtalk.directive('ntShare', [function() {
 
             var addEventListener = function() {
 
-                el.on('mousedown', function(e) {
+                el.on('click', function(e) {
 
                     e.stopPropagation();
+                    e.preventDefault();
 
-                    window.open(scope.url, '', 'width=550,height=266');
+                    $window.open(scope.url, '', 'width=550,height=266');
 
+                    return false;
                 });
             };
 
