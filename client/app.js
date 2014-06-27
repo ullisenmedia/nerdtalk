@@ -22,6 +22,7 @@ var nerdtalk = angular.module('nerdtalk', [
             });
 
 //        $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('!');
 
     }])
     .run(['$httpBackend', 'mockPosts', function($httpBackend, mockPosts) {
@@ -31,3 +32,4 @@ var nerdtalk = angular.module('nerdtalk', [
         $httpBackend.whenGET('/ghost/api/v0.1/posts').respond(mockPosts);
 
     }]);
+

@@ -242,7 +242,7 @@ a.icon-gplus-state-iconcolor:hover {
 
     width: 400px;
     height: 100%;
-    background: url("../img/blog-sidebar.png") #000000 no-repeat top left;
+    background: url("../img/blog-sidebar.png") #ff0099 no-repeat top left;
     top: 0;
     left: 0;
     bottom: 0;
@@ -260,17 +260,18 @@ a.icon-gplus-state-iconcolor:hover {
 }
 
 
-#side-bar-view .side-menu {
+/*#side-bar-view .side-menu {*/
 
-    left: 0;
-    bottom: 0;
-    position: absolute;
-}
+    /*left: 0;*/
+    /*bottom: 0;*/
+    /*position: absolute;*/
+/*}*/
 
 #side-bar-view .menu-links ul li {
 
     width: 100%;
     height: 60px;
+    background-color: #000000;
 
 }
 
