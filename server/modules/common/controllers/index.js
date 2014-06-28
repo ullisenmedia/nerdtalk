@@ -3,7 +3,7 @@
 var util = require('util');
 var webController = require('./web');
 //var apiController = require('./api');
-var Controller = require('../lib/controller');
+var Controller = require('../../../lib/controller');
 
 // Controller used to setup other controller modules
 var AppController = function() {

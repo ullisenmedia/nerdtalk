@@ -3,54 +3,38 @@
  * Module dependencies.
  */
 
-var express = require('express'),
+'use strict'
+
+var util = require('util'),
     http = require('http'),
     path = require('path'),
-    hbs = require('handlerbars'),
-    cons = require('consolidate'),
-    middleware = require('./lib/middleware'),
+    Application = require('./lib/application'),
+    commonApp = require('./modules/common');
 
-    // Application Modules
-    common = require('./modules/common'),
-    posts = require('./modules/posts');
+var NTApplication = function () {
+
+    Application.call(this, {
+        name: 'Nerd Talk',
+        viewDir: path.join(__dirname, '/views'),
+        appDir: path.join(__dirname, '../client'),
+        isRoot: true
+    });
+};
+
+NTApplication.prototype.initialize = function () {
+
+    this.addMdoule(commonApp.app);
+
+    NTApplication.super_.prototype.initialize();
+
+};
+
+util.inherits(NTApplication, Application);
 
 
-// Configuration properties
+var ntapp = new NTApplication();
 
-app = express(common);
+http.createServer(ntapp.app).listen(ntapp.port, function() {
 
-var port = process.env.PORT || 3000;
-var viewsDir =  path.join(__dirname, '/views');
-var appDir = path.join(__dirname, '../client');
-
-
-// Configure Modules
-
-app.use(common);
-app.use(posts);
-
-// Express app configurations
-
-app.engine('handlers', cons.handlerbars);
-
-app.configure(function () {
-    app.set('port', port);
-    app.set('views', viewsDir);
-    app.set('view engine', 'hbs');
-
-    app.use(express.compress());
-    app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(middleware.queryFilter());
-    app.use(middleware.cors());
-
-    app.use(express.static(appDir));
-    app.use(app.router);
-    app.use(middleware.notFound());
-});
-
-// Listen on server application
-http.createServer(app).listen(port, function() {
-    console.log('Cool CNN Tweet server listening on port ' + port);
+    console.log(ntapp.MESSAGE_LISTENER, ntapp.name, ntapp.port);
 });

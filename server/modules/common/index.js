@@ -2,7 +2,7 @@
 
 var util = require('util'),
     path = require('path'),
-    Application = require('../lib/application'),
+    Application = require('../../lib/application'),
     appController = require('./controllers');
 
 var CommonApplication = function () {
@@ -21,6 +21,6 @@ CommonApplication.prototype.initialize = function () {
 
 };
 
-util.inherit(CommonApplication, Application);
+util.inherits(CommonApplication, Application);
 
 module.export = new CommonApplication();

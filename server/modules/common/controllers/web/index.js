@@ -1,8 +1,8 @@
 'use strict'
 
 var util = require('util'),
-    config = require('../../config'),
-    Controller = require('../../lib/controller');
+    config = require('../../../../config'),
+    Controller = require('../../../../lib/controller');
 
 var ROUTE_PREFIX = '/:user?';
 

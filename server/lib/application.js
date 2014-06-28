@@ -9,11 +9,10 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     _ = require('underscore'),
-    hbs = require('handlerbars'),
+    hbs = require('handlebars'),
     cons = require('consolidate'),
-    middleware = require('./lib/middleware');
+    middleware = require('./middleware');
 
-var MESSAGE_LISTENER = '%s Application Listening on port %s';
 
 var Application = function (params) {
 
@@ -22,22 +21,25 @@ var Application = function (params) {
 
 Application.prototype = {
 
+    MESSAGE_LISTENER: '%s Application Listening on port %s',
+
     name: null,
-    app: null,
+    app: express(),
     port: 3000,
     viewsDir: null,
     appDir: null,
+    isRoot: false,
 
     initialize: function (params) {
 
-        this.app = express();
+//        this.app = express();
         this.name = params.name;
         this.port = process.env.PORT || this.port;
         this.viewsDir =  params.viewDir;
-        this.appDir = params.appDir;
+        this.appDir = params.appDir || null;
+        this.isRoot = params.isRoot || false;
 
         this.configure();
-        this.addServerListeners();
     },
 
     addMdoule: function(module) {
@@ -47,36 +49,41 @@ Application.prototype = {
 
     configure: function() {
 
-        this.app.engine('handlers', cons.handlerbars);
+        var that = this;
+
+        this.app.engine('handlers', cons.handlebars);
 
         this.app.configure(function () {
 
-            this.app.set('port', this.port);
-            this.app.set('views', this.viewsDir);
-            this.app.set('view engine', 'hbs');
+            if(that.isRoot) {
 
-            this.app.use(express.compress());
-            this.app.use(express.logger('dev'));
-            this.app.use(express.bodyParser());
-            this.app.use(express.methodOverride());
-            this.app.use(middleware.queryFilter());
-            this.app.use(middleware.cors());
-
-            if(this.appDir) {
-                this.app.use(express.static(this.appDir));
+                that.app.set('port', that.port);
             }
 
-            this.app.use(this.app.router);
-            this.app.use(middleware.notFound());
-        });
-    },
+            if(that.viewsDir) {
 
-    addServerListeners: function() {
+                that.app.set('views', that.viewsDir);
+                that.app.set('view engine', 'hbs');
+            }
 
-        // Listen on server application
-        this.app.listen(this.port, function() {
+            that.app.use(express.compress());
+            that.app.use(express.logger('dev'));
+            that.app.use(express.bodyParser());
+            that.app.use(express.methodOverride());
 
-            console.log(MESSAGE_LISTENER, this.name, this.port);
+            if(that.isRoot) {
+
+                that.app.use(middleware.queryFilter());
+                that.app.use(middleware.cors());
+            }
+
+            if(that.appDir) {
+
+                that.app.use(express.static(that.appDir));
+            }
+
+            that.app.use(that.app.router);
+//            that.app.use(middleware.notFound());
         });
     }
 };
