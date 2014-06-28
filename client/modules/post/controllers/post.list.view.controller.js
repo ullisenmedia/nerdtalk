@@ -29,7 +29,7 @@ nerdtalk.controller('PostListViewController', ['$scope', '$routeParams', '$locat
 
             $scope.onItemSelected = function (selectedItem) {
 
-                $location.url('post/' + selectedItem.slug);
+                $location.url('posts/' + selectedItem.slug);
 
             };
         };

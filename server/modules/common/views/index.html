@@ -57,7 +57,61 @@
 
     </div>
 
-    <div id="main-view" class="column"></div>
+    <div id="main-view" class="column">
+
+        <div id="posts">
+
+            {% for post in posts %}
+            <div class="post">
+
+                <div class="image-mask">
+                    <img src="{{post.image}}">
+                </div>
+
+                <div class="menu menu-horizontal menu-social">
+                    <ul>
+                        <li>
+                            <a href="http://www.facebook.com/sharer.php?u=http://google.com?q={[{post.slug}]}"
+                               class="icon icon-facebook-white icon-facebook-state-iconcolor"></a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/share?original_referer={[{post.slug}]}&source=tweetbutton&text={[{post.title}]}&url={[{post.slug}]}&via=ullisenmedia"
+                               class="icon icon-twitter-white icon-twitter-state-iconcolor"></a>
+                        </li>
+                        <li>
+                            <a href="https://plus.google.com/share?url={[{post.slug}]}"
+                               class="icon icon-gplus-white icon-gplus-state-iconcolor"></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content">
+
+                    <h2>{{post.title}}</h2>
+
+                    <span class="time">{{post.published_at}}</span>
+
+                    <div class="html">
+                        {{post.html}}
+                    </div>
+
+                    <br />
+                    <a href="/posts/{{post.slug}}">Read More</a>
+
+                </div>
+
+                <div class="comments">12</div>
+
+            </div>
+            {% endfor %}
+
+            <div class="spacer"></div>
+
+        </div>
+
+    </div>
+
+    </div>
 
 </div>
 {% endblock %}

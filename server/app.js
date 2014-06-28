@@ -10,6 +10,7 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     Application = require('./lib/application'),
+    PostApplication = require('./modules/post'),
     CommonApplication = require('./modules/common');
 
 var NTApplication = function () {
@@ -27,6 +28,7 @@ util.inherits(NTApplication, Application);
 NTApplication.prototype.initialize = function (params) {
 
     var commonApp = new CommonApplication();
+    var postApp = new PostApplication();
 
     this.app = express();
     this.name = params.name;
@@ -36,6 +38,8 @@ NTApplication.prototype.initialize = function (params) {
     this.isRoot = params.isRoot || false;
 
     this.addMdoule(commonApp.app);
+    this.addMdoule(postApp.app);
+
     this.configure();
 
 };

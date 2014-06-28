@@ -15,16 +15,14 @@ var nerdtalk = angular.module('nerdtalk', [
             $routeProvider
                 .when('/', {
 
-                    templateUrl: 'modules/post/views/post.list.view.html',
+                    templateUrl: '/modules/post/views/post.list.view.html',
                     controller: 'PostListViewController'
                 })
-                .when('/post/:slug', {
+                .when('/posts/:slug', {
 
-                    templateUrl: 'modules/post/views/post.view.html',
+                    templateUrl: '/modules/post/views/post.view.html',
                     controller: 'PostViewController'
                 });
-
-//        $locationProvider.html5Mode(true);
 
 
             // Interpolation Configurations
@@ -34,6 +32,7 @@ var nerdtalk = angular.module('nerdtalk', [
             // Location Configurations
 
             $locationProvider.hashPrefix('!');
+            $locationProvider.html5Mode(true);
 
         }])
     .run(['$httpBackend', 'mockPosts', function ($httpBackend, mockPosts) {

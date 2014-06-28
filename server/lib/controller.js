@@ -13,23 +13,19 @@ Controller.prototype = {
     // Controller setup
     initialize: function(app) {
 
-        app.get(this.route, this.middleware, this.get);
+        app.get(this.route, this.middleware, this.getHandler);
     },
 
 
     // Default Middleware for controllers
     middleware: function(req, res, next) {
 
-        console.log(req.isCrawler + '-------------------------');
-
-        // TODO: Check to see if the request is coming from a crawler
-
         next();
     },
 
 
     // Controller route handlers
-    get: function(req, res) {}
+    getHandler: function(req, res) {}
 };
 
 module.exports = Controller;
