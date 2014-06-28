@@ -1,3 +1,6 @@
+# Default
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -29,3 +32,13 @@ node_modules
 
 # Bower
 client/lib
+
+# Hexo
+Thumbs.db
+db.json
+node_modules/
+public/
+.deploy/
+
+# Server
+app.config.json

@@ -7,25 +7,36 @@ var nerdtalk = angular.module('nerdtalk', [
         'ngAnimate',
         'ngMockE2E'
     ])
-    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    .config(['$routeProvider', '$locationProvider', '$interpolateProvider',
+        function ($routeProvider, $locationProvider, $interpolateProvider) {
 
-        $routeProvider
-            .when('/', {
+            // Route Configurations
 
-                templateUrl: 'modules/post/views/post.list.view.html',
-                controller: 'PostListViewController'
-            })
-            .when('/post/:slug', {
+            $routeProvider
+                .when('/', {
 
-                templateUrl: 'modules/post/views/post.view.html',
-                controller: 'PostViewController'
-            });
+                    templateUrl: 'modules/post/views/post.list.view.html',
+                    controller: 'PostListViewController'
+                })
+                .when('/post/:slug', {
+
+                    templateUrl: 'modules/post/views/post.view.html',
+                    controller: 'PostViewController'
+                });
 
 //        $locationProvider.html5Mode(true);
-        $locationProvider.hashPrefix('!');
 
-    }])
-    .run(['$httpBackend', 'mockPosts', function($httpBackend, mockPosts) {
+
+            // Interpolation Configurations
+
+            $interpolateProvider.startSymbol('{[{').endSymbol('}]}')
+
+            // Location Configurations
+
+            $locationProvider.hashPrefix('!');
+
+        }])
+    .run(['$httpBackend', 'mockPosts', function ($httpBackend, mockPosts) {
 
         $httpBackend.whenGET(/\.html$/).passThrough();
 

@@ -1,0 +1,19 @@
+<div id="app-view">
+
+    <div id="side-bar-view"
+         ng-controller="SideBarViewController"
+         class="column">
+
+        <div class="spacer"></div>
+
+        <div id="side-menu-view"
+             ng-include="sideMenuView.template.url"
+             class="side-menu"></div>
+
+    </div>
+
+    <div id="main-view"
+         ng-view
+         class="column"></div>
+
+</div>
