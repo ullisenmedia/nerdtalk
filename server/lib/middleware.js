@@ -28,6 +28,16 @@ module.exports = {
 
     },
 
+    crawlerDetect: function() {
+
+        return function(req, res, next) {
+
+            req.isCrawler = req.query.hasOwnProperty('_escaped_fragment_');
+
+            next();
+        }
+    },
+
     queryFilter: function() {
 
         return function(req, res, next) {

@@ -13,14 +13,14 @@ var CommonApplication = function () {
     });
 };
 
-CommonApplication.prototype.initialize = function () {
+util.inherits(CommonApplication, Application);
 
-    CommonApplication.super_.prototype.initialize();
+CommonApplication.prototype.initialize = function (params) {
+
+    CommonApplication.super_.prototype.initialize(params);
 
     appController.initialize(this.app);
 
 };
 
-util.inherits(CommonApplication, Application);
-
-module.export = new CommonApplication();
+module.exports = CommonApplication;

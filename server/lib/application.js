@@ -9,7 +9,7 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     _ = require('underscore'),
-    hbs = require('handlebars'),
+    swig = require('swig'),
     cons = require('consolidate'),
     middleware = require('./middleware');
 
@@ -24,7 +24,7 @@ Application.prototype = {
     MESSAGE_LISTENER: '%s Application Listening on port %s',
 
     name: null,
-    app: express(),
+    app: null,
     port: 3000,
     viewsDir: null,
     appDir: null,
@@ -32,7 +32,7 @@ Application.prototype = {
 
     initialize: function (params) {
 
-//        this.app = express();
+        this.app = express();
         this.name = params.name;
         this.port = process.env.PORT || this.port;
         this.viewsDir =  params.viewDir;
@@ -51,7 +51,7 @@ Application.prototype = {
 
         var that = this;
 
-        this.app.engine('handlers', cons.handlebars);
+        this.app.engine('html', cons.swig);
 
         this.app.configure(function () {
 
@@ -62,8 +62,8 @@ Application.prototype = {
 
             if(that.viewsDir) {
 
+                that.app.set('view engine', 'html');
                 that.app.set('views', that.viewsDir);
-                that.app.set('view engine', 'hbs');
             }
 
             that.app.use(express.compress());
@@ -71,11 +71,9 @@ Application.prototype = {
             that.app.use(express.bodyParser());
             that.app.use(express.methodOverride());
 
-            if(that.isRoot) {
-
-                that.app.use(middleware.queryFilter());
-                that.app.use(middleware.cors());
-            }
+            that.app.use(middleware.crawlerDetect());
+            that.app.use(middleware.queryFilter());
+            that.app.use(middleware.cors());
 
             if(that.appDir) {
 
@@ -83,7 +81,6 @@ Application.prototype = {
             }
 
             that.app.use(that.app.router);
-//            that.app.use(middleware.notFound());
         });
     }
 };
