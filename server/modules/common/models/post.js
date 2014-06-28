@@ -1,4 +1,5 @@
-var Q = require('Q')
+var Q = require('Q'),
+    _ = require('underscore'),
     mock = require('./posts.mock.json');
 
 var Post = function() {
@@ -11,7 +12,7 @@ Post.prototype = {
 
         var deferred = Q.defer();
 
-        var post = _.findWhere(mock, {slug: slug});
+        var post = _.findWhere(mock.posts, {slug: slug});
 
         setTimeout(function() {
 

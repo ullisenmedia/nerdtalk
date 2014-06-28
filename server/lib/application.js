@@ -11,6 +11,7 @@ var express = require('express'),
     _ = require('underscore'),
     swig = require('swig'),
     cons = require('consolidate'),
+    lib = require('./util'),
     middleware = require('./middleware');
 
 
@@ -26,16 +27,18 @@ Application.prototype = {
     name: null,
     app: null,
     port: 3000,
-    viewsDir: null,
+    viewsDirs: null,
     appDir: null,
     isRoot: false,
 
     initialize: function (params) {
 
         this.app = express();
+//        lib.enableMultiViewsFolder(this.app);
+
         this.name = params.name;
         this.port = process.env.PORT || this.port;
-        this.viewsDir =  params.viewDir;
+        this.viewsDirs =  params.viewsDirs;
         this.appDir = params.appDir || null;
         this.isRoot = params.isRoot || false;
 
@@ -60,10 +63,11 @@ Application.prototype = {
                 that.app.set('port', that.port);
             }
 
-            if(that.viewsDir) {
+            if(that.viewsDirs) {
 
                 that.app.set('view engine', 'html');
-                that.app.set('views', that.viewsDir);
+                that.app.set('view', require('express-prefixed-roots-view'));
+                that.app.set('views', that.viewsDirs);
             }
 
             that.app.use(express.compress());

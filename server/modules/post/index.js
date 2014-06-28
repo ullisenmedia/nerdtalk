@@ -9,7 +9,10 @@ var PostApplication = function () {
 
     Application.call(this, {
         name: 'Post',
-        viewDir: path.join(__dirname, '/views')
+        viewDirs: {
+            '': path.join(__dirname, '/views'),
+            'common': path.join(__dirname, '/../../common/views')
+        }
     });
 };
 

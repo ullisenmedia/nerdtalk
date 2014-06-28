@@ -1,117 +1,57 @@
 {% extends 'layout.html' %}
 
-{% block content %}
-<div id="app-view">
+{% block mainview %}
 
-    <div id="side-bar-view" class="column">
+<div id="main-view" class="column">
 
-        <div class="spacer"></div>
+    <div id="posts">
 
-        <div id="side-menu-view" class="side-menu">
-            <div class="search" nt-search>
-                <input type="text" name="q" id="q" placeholder="Search" autocomplete="false" autocorrect="false"
-                       skin-part="searchInput">
+        {% for post in posts %}
+        <div class="post">
+
+            <div class="image-mask">
+                <img src="{{post.image}}">
             </div>
 
             <div class="menu menu-horizontal menu-social">
                 <ul>
-                    <li><a class="icon icon-social-state icon-facebook-white icon-facebook-state-bgcolor"
-                           href="http://www.facebook.com/ullisenmedia"
-                           target="_blank"></a></li>
-
-                    <li><a class="icon icon-social-state icon-twitter-white icon-twitter-state-bgcolor"
-                           href="http://twitter.com/ullisenmedia"
-                           target="_blank"></a></li>
-
-                    <li><a class="icon icon-social-state icon-gplus-white icon-gplus-state-bgcolor"
-                           href="http://plus.google.com/+ullisenmedia" target="_blank"></a></li>
                     <li>
-                        <div>
-                            <a href="http://ullisenmedia.com" target="_blank">ullisenmedia.com</a>
-                        </div>
+                        <a href="http://www.facebook.com/sharer.php?u=http://google.com?q={[{post.slug}]}"
+                           class="icon icon-facebook-white icon-facebook-state-iconcolor"></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share?original_referer={[{post.slug}]}&source=tweetbutton&text={[{post.title}]}&url={[{post.slug}]}&via=ullisenmedia"
+                           class="icon icon-twitter-white icon-twitter-state-iconcolor"></a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url={[{post.slug}]}"
+                           class="icon icon-gplus-white icon-gplus-state-iconcolor"></a>
                     </li>
                 </ul>
             </div>
 
-            <div class="menu menu-vertical menu-links menu-pink">
-                <ul>
-                    <li>
-                        <a href="/archive">
-                            <span>archive</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/rss">
-                            rss feed
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.youtube.com/channel/UCZ6nQAv1hCPCnkuQg8_-jpg" target="_blank">
-                            YOUTUBE
-                        </a>
-                    </li>
-                </ul>
+            <div class="content">
+
+                <h2>{{post.title}}</h2>
+
+                <span class="time">{{post.published_at}}</span>
+
+                <div class="html">
+                    {{post.html}}
+                </div>
+
+                <br/>
+                <a href="/posts/{{post.slug}}">Read More</a>
+
             </div>
 
-        </div>
-
-    </div>
-
-    <div id="main-view" class="column">
-
-        <div id="posts">
-
-            {% for post in posts %}
-            <div class="post">
-
-                <div class="image-mask">
-                    <img src="{{post.image}}">
-                </div>
-
-                <div class="menu menu-horizontal menu-social">
-                    <ul>
-                        <li>
-                            <a href="http://www.facebook.com/sharer.php?u=http://google.com?q={[{post.slug}]}"
-                               class="icon icon-facebook-white icon-facebook-state-iconcolor"></a>
-                        </li>
-                        <li>
-                            <a href="https://twitter.com/share?original_referer={[{post.slug}]}&source=tweetbutton&text={[{post.title}]}&url={[{post.slug}]}&via=ullisenmedia"
-                               class="icon icon-twitter-white icon-twitter-state-iconcolor"></a>
-                        </li>
-                        <li>
-                            <a href="https://plus.google.com/share?url={[{post.slug}]}"
-                               class="icon icon-gplus-white icon-gplus-state-iconcolor"></a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="content">
-
-                    <h2>{{post.title}}</h2>
-
-                    <span class="time">{{post.published_at}}</span>
-
-                    <div class="html">
-                        {{post.html}}
-                    </div>
-
-                    <br />
-                    <a href="/posts/{{post.slug}}">Read More</a>
-
-                </div>
-
-                <div class="comments">12</div>
-
-            </div>
-            {% endfor %}
-
-            <div class="spacer"></div>
+            <div class="comments">12</div>
 
         </div>
+        {% endfor %}
+
+        <div class="spacer"></div>
 
     </div>
-
-    </div>
-
 </div>
 {% endblock %}
