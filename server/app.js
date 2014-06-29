@@ -26,9 +26,6 @@ util.inherits(NTApplication, Application);
 
 NTApplication.prototype.initialize = function (params) {
 
-    var commonApp = new CommonApplication();
-//    var postApp = new PostApplication();
-
     this.app = express();
     this.name = params.name;
     this.port = process.env.PORT || this.port;
@@ -36,8 +33,11 @@ NTApplication.prototype.initialize = function (params) {
     this.appDir = params.appDir || null;
     this.isRoot = params.isRoot || false;
 
-    this.addMdoule(commonApp.app);
-//    this.addMdoule(postApp.app);
+//    var commonApp = new CommonApplication();
+//    this.addMdoule(commonApp.app);
+
+    var postApp = new PostApplication();
+    this.addMdoule(postApp.app);
 
     this.configure();
 

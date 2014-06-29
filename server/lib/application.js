@@ -34,8 +34,6 @@ Application.prototype = {
     initialize: function (params) {
 
         this.app = express();
-//        lib.enableMultiViewsFolder(this.app);
-
         this.name = params.name;
         this.port = process.env.PORT || this.port;
         this.viewsDirs =  params.viewsDirs;
@@ -66,7 +64,6 @@ Application.prototype = {
             if(that.viewsDirs) {
 
                 that.app.set('view engine', 'html');
-                that.app.set('view', require('express-prefixed-roots-view'));
                 that.app.set('views', that.viewsDirs);
             }
 

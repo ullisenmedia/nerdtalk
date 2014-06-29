@@ -9,9 +9,8 @@ var CommonApplication = function () {
 
     Application.call(this, {
         name: 'Common',
-        viewsDirs: {
-            '': path.join(__dirname, '/views')
-        }
+        viewsDirs: path.join(__dirname, '/views')
+
     });
 };
 
