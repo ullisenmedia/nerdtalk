@@ -37,7 +37,9 @@
                 <span class="time">{{post.published_at}}</span>
 
                 <div class="html">
-                    {{post.html}}
+                    {% autoescape false %}
+                        {{post.html}}
+                    {% endautoescape %}
                 </div>
 
                 <br/>

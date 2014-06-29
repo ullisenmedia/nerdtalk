@@ -33,8 +33,8 @@ NTApplication.prototype.initialize = function (params) {
     this.appDir = params.appDir || null;
     this.isRoot = params.isRoot || false;
 
-//    var commonApp = new CommonApplication();
-//    this.addMdoule(commonApp.app);
+    var commonApp = new CommonApplication();
+    this.addMdoule(commonApp.app);
 
     var postApp = new PostApplication();
     this.addMdoule(postApp.app);

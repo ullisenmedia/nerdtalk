@@ -46,7 +46,11 @@
 
         <div class="content">
 
-            <div class="html">{{post.html}}</div>
+            <div class="html">
+                {% autoescape false %}
+                    {{post.html}}
+                {% endautoescape %}
+            </div>
 
         </div>
 
