@@ -1,7 +1,6 @@
 'use strict'
 
 var util = require('util'),
-//    cons = require('consolidate'),
     config = require('../../../../config'),
     Post = require('../../../common/models/post'),
     Controller = require('../../../../lib/controller');

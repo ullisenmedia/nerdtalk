@@ -5,7 +5,7 @@ var nerdtalk = angular.module('nerdtalk', [
         'ngRoute',
         'ngSanitize',
         'ngAnimate',
-        'ngMockE2E'
+//        'ngMockE2E'
     ])
     .config(['$routeProvider', '$locationProvider', '$interpolateProvider',
         function ($routeProvider, $locationProvider, $interpolateProvider) {
@@ -35,11 +35,11 @@ var nerdtalk = angular.module('nerdtalk', [
             $locationProvider.html5Mode(true);
 
         }])
-    .run(['$httpBackend', 'mockPosts', function ($httpBackend, mockPosts) {
-
-        $httpBackend.whenGET(/\.html$/).passThrough();
-
-        $httpBackend.whenGET('/ghost/api/v0.1/posts').respond(mockPosts);
-
-    }]);
+//    .run(['$httpBackend', 'mockPosts', function ($httpBackend, mockPosts) {
+//
+//        $httpBackend.whenGET(/\.html$/).passThrough();
+//
+//        $httpBackend.whenGET('/ghost/api/v0.1/posts').respond(mockPosts);
+//
+//    }]);
 

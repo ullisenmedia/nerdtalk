@@ -1,6 +1,6 @@
 nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $http, $q) {
 
-    var url = '/ghost/api/v0.1/posts';
+    var url = '/api/posts';
 
     var list = function() {
 
@@ -8,11 +8,11 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
 
        $http.get(url).then(
 
-           function onSucces(data) {
+           function onSucces(result) {
 
-               $rootScope.posts = data.data.posts;
+               $rootScope.posts = result.data.posts;
 
-               return deferred.resolve(data.data);
+               return deferred.resolve(result.data.posts);
            },
 
            function onError(err) {
@@ -24,14 +24,14 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
         return deferred.promise;
     };
 
-    var get = function(id) {
+    var get = function(slug) {
 
         var post;
         var deferred = $q.defer();
 
         if($rootScope.posts) {
 
-            var post = _.findWhere($rootScope.posts, {slug: id});
+            var post = _.findWhere($rootScope.posts, {slug: slug});
 
             if(post) {
 
@@ -42,7 +42,19 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
         }
 
         if(!post) {
-            // TODO Get data from server
+
+            $http.get(url + '/' + slug).then(
+
+                function onSuccess(result) {
+
+                    deferred.resolve(result.data.post);
+                },
+
+                function onError(err) {
+
+                    deferred.reject(err);
+                }
+            )
         }
 
         return deferred.promise;
