@@ -3,6 +3,7 @@
 var util = require('util'),
     config = require('../../../../config'),
     Post = require('../../../common/models/post'),
+    datastore = require('../../../../lib/datastore'),
     Controller = require('../../../../lib/controller');
 
 var APIController = function() {

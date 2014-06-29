@@ -29,6 +29,7 @@
             "status": "published",
             "id": 2,
             "uuid": "ec630e45-3342-4d7f-a24c-e448263c975b",
+
             "title": "Welcome to Ghost2",
             "slug": "welcome-to-ghost2",
             "markdown": "",

@@ -9,6 +9,7 @@ var express = require('express'),
     util = require('util'),
     http = require('http'),
     path = require('path'),
+    datastore = require('./lib/datastore'),
     Application = require('./lib/application'),
     PostApplication = require('./modules/post'),
     CommonApplication = require('./modules/common');

@@ -1,5 +1,9 @@
 # Default
 .DS_Store
+*.p12
+*.pem
+samples
+tools
 
 # Logs
 logs
@@ -41,4 +45,5 @@ public/
 .deploy/
 
 # Server
+app.conf.json
 app.config.json

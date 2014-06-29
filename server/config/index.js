@@ -1,17 +1,9 @@
 'use strict'
 
-module.exports = {
+var path = require('path'),
+    _ = require('underscore');
 
-    app: {
-       name: 'CNN Tweet'
-    },
+var confPath = process.env['CONF_PATH'];
+var pemPath = process.env['PEM_PATH'];
 
-    apis: {
-        twitter: {
-            "consumerKey": "u9sZhPF6yoaj8qs5KGPwugvth",
-            "consumerSecret": "LQvxXgcZPAJoYTADJ5oVfKxmDvyi3pqI9uGSZTo3avijmbZUem",
-            "accessToken": "39834562-95Af0Rd1RTjpT7tGWoHsv4P8sYJCsU9FISIbwGTBR",
-            "accessTokenSecret": "hbjhZ9mdNyHpwn9No8L73ncmLdGZXshVfCToauKuwmwvh"
-        }
-    }
-};
+module.exports = _.extend({pem: pemPath}, require(confPath));

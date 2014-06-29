@@ -38,7 +38,6 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
                 deferred.resolve(post);
 
             }
-
         }
 
         if(!post) {
