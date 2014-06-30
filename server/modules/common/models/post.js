@@ -1,40 +1,31 @@
 var Q = require('Q'),
+    util = require('util'),
     _ = require('underscore'),
-    mock = require('./posts.mock.json');
+    Model = require('../../../lib/model');
+//    mock = require('./posts.mock.json');
 
 var Post = function() {
 
+    Model.call(this, 'Post');
 };
 
-Post.prototype = {
+util.inherits(Post, Model);
 
-    get: function(slug) {
+Post.prototype.findBySlug = function(slug) {
 
-        var deferred = Q.defer();
+    var query = {
+        propertyFilter: {
+            property: {
+                name: 'slug'
+            },
+            value: {
+              stringValue: slug
+            },
+            operator: 'EQUAL'
+        }
+    };
 
-        var post = _.findWhere(mock.posts, {slug: slug});
-
-        setTimeout(function() {
-
-            deferred.resolve(post || {});
-
-        }, 300);
-
-        return deferred.promise;
-    },
-
-    list: function() {
-
-        var deferred = Q.defer();
-
-        setTimeout(function() {
-
-            deferred.resolve(mock);
-
-        }, 300);
-
-        return deferred.promise;
-    }
+    return this.find(query);
 };
 
 module.exports = new Post();

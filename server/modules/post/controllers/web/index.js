@@ -32,7 +32,7 @@ WebController.prototype.middleware = function(req, res, next) {
 
 WebController.prototype.getHandler = function(req, res) {
 
-    Post.get(req.params.slug).then(
+    Post.findBySlug(req.params.slug).then(
 
         function onSuccess(post) {
 
