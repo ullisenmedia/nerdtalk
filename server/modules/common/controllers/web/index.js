@@ -33,11 +33,11 @@ WebController.prototype.middleware = function(req, res, next) {
 
 WebController.prototype.getHandler = function(req, res) {
 
-    Post.list().then(
+    Post.find().then(
 
-        function onSuccess(data) {
+        function onSuccess(posts) {
 
-            return res.render('index', {title: config.app.name, posts: data.posts});
+            return res.render('index', {title: config.app.name, posts: posts});
         },
 
         function onError(err) {

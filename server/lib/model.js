@@ -1,6 +1,7 @@
 var Q = require('Q'),
     _ = require('underscore'),
-    ds = require('datastore');
+    moment = require('moment'),
+    ds = require('./datastore');
 
 var Model = function (type) {
 
@@ -85,13 +86,17 @@ Model.toObject = function (properties, isArray) {
 
         if(property.type === 'entityValue') {
 
-            result[key] = this.toObject(property.value.properties);
+            result[key] = Model.toObject(property.value.properties);
 
         } else if(property.type === 'listValue') {
 
-            result[key] = this.toObject(property.value, true);
+            result[key] = Model.toObject(property.value, true);
 
-        } else {
+        } /*else if (property.type === 'dateTimeValue') {
+
+            result[key] = moment(property.value);
+
+        }*/ else {
 
             result[key] = property.value;
         }
@@ -105,9 +110,9 @@ Model.toArray = function(entities) {
 
     var result = [];
 
-    _.each(entities, function(entity) {
+    _.each(entities, function(item) {
 
-        result.push(entity.properties);
+        result.push(Model.toObject(item.entity.properties));
     });
 
     return result;

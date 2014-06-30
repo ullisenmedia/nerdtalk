@@ -2,7 +2,6 @@ var Q = require('Q'),
     util = require('util'),
     _ = require('underscore'),
     Model = require('../../../lib/model');
-//    mock = require('./posts.mock.json');
 
 var Post = function() {
 
@@ -13,7 +12,9 @@ util.inherits(Post, Model);
 
 Post.prototype.findBySlug = function(slug) {
 
-    var query = {
+    var deferred = Q.defer();
+
+    var filter = {
         propertyFilter: {
             property: {
                 name: 'slug'
@@ -25,7 +26,27 @@ Post.prototype.findBySlug = function(slug) {
         }
     };
 
-    return this.find(query);
+    this.find(filter).then(
+
+        function onSuccess(result) {
+
+            var post = {};
+
+            if(result && result[0]) {
+
+                post = result[0];
+            }
+
+            deferred.resolve(post);
+        },
+
+        function onError(err) {
+
+            deferred.reject(err);
+        }
+    );
+
+    return deferred.promise;
 };
 
 module.exports = new Post();

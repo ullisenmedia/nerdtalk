@@ -51,7 +51,7 @@ APIController.prototype.postHandler = function(req, res) {
 
         function onSuccess(post) {
 
-            return res.json({post: post});
+            return res.json(post);
         },
 
         function onError(err) {

@@ -10,9 +10,9 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
 
            function onSucces(result) {
 
-               $rootScope.posts = result.data.posts;
+               $rootScope.posts = result.data;
 
-               return deferred.resolve(result.data.posts);
+               return deferred.resolve(result.data);
            },
 
            function onError(err) {
@@ -46,7 +46,7 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
 
                 function onSuccess(result) {
 
-                    deferred.resolve(result.data.post);
+                    deferred.resolve(result.data);
                 },
 
                 function onError(err) {

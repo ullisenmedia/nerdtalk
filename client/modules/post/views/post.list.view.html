@@ -20,7 +20,7 @@
                 </li>
                 <li>
                     <a href="#"
-                       nt-share="https://twitter.com/share??original_referer={[{post.slug}]}&source=tweetbutton&text={[{post.title}]}&url={[{post.slug}]}&via=ullisenmedia"
+                       nt-share="https://twitter.com/share?original_referer={[{post.slug}]}&source=tweetbutton&text={[{post.title}]}&url={[{post.slug}]}&via=ullisenmedia"
                        class="icon icon-twitter-white icon-twitter-state-iconcolor"></a>
                 </li>
                 <li>
@@ -37,7 +37,7 @@
 
             <span class="time">{[{post.published_at}]}</span>
 
-            <div ng-bind-html="post.html" class="html"></div>
+            <div ng-bind-html="post.summary_html" class="html"></div>
 
         </div>
 
