@@ -36,13 +36,24 @@ Model.prototype = {
         return deferred.promise;
     },
 
-    find: function (filter) {
+    find: function (filter, isGQL) {
 
         var deferred = Q.defer();
 
-        var finalQuery = _.extend({filter: filter}, {"kinds": [{"name": this.type}]});
+        var finalQuery = null;
 
-        ds.runQuery({query: finalQuery}).then(
+        if(isGQL) {
+
+            finalQuery = {gqlQuery: finalQuery};
+
+        } else {
+
+//            finalQuery = {"kinds": [{"name": this.type}]};
+//            finalQuery.filter = filter;
+            finalQuery = {query: _.extend({filter: filter}, {"kinds": [{"name": this.type}]})};
+        }
+
+        ds.runQuery(finalQuery).then(
 
             function onSuccess(entities) {
 

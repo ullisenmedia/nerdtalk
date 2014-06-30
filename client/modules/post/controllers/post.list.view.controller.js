@@ -11,7 +11,7 @@ nerdtalk.controller('PostListViewController', ['$scope', '$routeParams', '$locat
 
         var listPosts = function () {
 
-            Post.list().then(
+            Post.find().then(
 
                 function onSuccess(posts) {
 

@@ -2,7 +2,7 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
 
     var url = '/api/posts';
 
-    var list = function() {
+    var find = function() {
 
        var deferred = $q.defer();
 
@@ -24,7 +24,7 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
         return deferred.promise;
     };
 
-    var get = function(slug) {
+    var findBySlug = function(slug) {
 
         var post;
         var deferred = $q.defer();
@@ -60,7 +60,7 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
     };
 
     return {
-        list: list,
-        get: get
+        find: find,
+        findBySlug: findBySlug
     }
 }]);

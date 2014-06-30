@@ -8,7 +8,7 @@ nerdtalk.controller('PostViewController', ['$scope', '$location', '$route', '$ro
 
         var getPost = function () {
 
-            Post.get($routeParams.slug).then(
+            Post.findBySlug($routeParams.slug).then(
 
                 function onSuccess(data) {
 
