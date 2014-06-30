@@ -48,5 +48,5 @@ var ntapp = new NTApplication();
 
 http.createServer(ntapp.app).listen(ntapp.port, function() {
 
-    console.log(ntapp.MESSAGE_LISTENER, ntapp.name, ntapp.port);
+    console.log(ntapp.MESSAGE_LISTENER, ntapp.title, ntapp.port);
 });

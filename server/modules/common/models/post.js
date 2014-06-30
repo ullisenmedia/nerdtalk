@@ -10,6 +10,34 @@ var Post = function() {
 
 util.inherits(Post, Model);
 
+Post.prototype.findByTag = function(tag) {
+
+    var filter = {
+        propertyFilter: {
+            property: {
+                name: 'tags'
+            },
+            value: {
+                stringValue: tag
+            },
+            operator: 'EQUAL'
+        }
+    };
+
+    Post.find(filter).then(
+
+        function onSuccess(posts) {
+
+            return res.json(posts);
+        },
+
+        function onError(err) {
+
+            return res.error(err);
+        }
+    );
+};
+
 Post.prototype.findBySlug = function(slug) {
 
     var deferred = Q.defer();

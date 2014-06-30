@@ -1,43 +1,48 @@
 'use strict'
 
 var util = require('util'),
-    config = require('../../../../config'),
+    path = require('path'),
+    _ = require('underscore'),
+    moment = require('moment'),
+    RSS = require('rss'),
+    conf = require('../../../../config'),
     Post = require('../../models/post'),
     Controller = require('../../../../lib/controller');
 
-var WebController = function() {
+var WebController = function () {
 
     Controller.call(this);
 };
 
 util.inherits(WebController, Controller);
 
-WebController.prototype.initialize = function(app) {
+WebController.prototype.initialize = function (app) {
 
     app.get('/archive', this.middleware, this.archiveHandler);
-    app.get('/rss', this.middleware, this.rssHandler);
+    app.get('/rss', this.rssHandler);
+    app.get('/rss.xml', this.rssHandler);
     app.get('/', this.middleware, this.getHandler);
 };
 
-WebController.prototype.middleware = function(req, res, next) {
+WebController.prototype.middleware = function (req, res, next) {
 
-    if(!req.isCrawler) {
+    if (!req.isCrawler) {
 
-        return res.render('index.angular.html', {title: config.app.name});
+        return res.render('index.angular.html', {title: conf.app.title});
 
-    }  else {
+    } else {
 
         next();
     }
 };
 
-WebController.prototype.getHandler = function(req, res) {
+WebController.prototype.getHandler = function (req, res) {
 
     Post.find().then(
 
         function onSuccess(posts) {
 
-            return res.render('index', {title: config.app.name, posts: posts});
+            return res.render('index', {title: config.app.title, posts: posts});
         },
 
         function onError(err) {
@@ -47,14 +52,59 @@ WebController.prototype.getHandler = function(req, res) {
     );
 };
 
-WebController.prototype.archiveHandler = function(req, res) {
+WebController.prototype.archiveHandler = function (req, res) {
 
-    return res.render('archive', {title: config.app.name});
+    return res.render('archive', {title: conf.app.title});
 };
 
-WebController.prototype.rssHandler = function(req, res) {
+WebController.prototype.rssHandler = function (req, res) {
 
-    return res.render('index', {title: config.app.name});
+    var link = req.protocol + '://' + req.get('host');
+    var copyright = util.format('All rights reserved %s, %s', moment().year(), conf.app.author.name);
+
+    /* lets create an rss feed */
+    var feed = new RSS({
+        title: conf.app.title,
+        description: conf.app.description,
+        feed_url: link + '/rss',
+        site_url: link,
+        image_url: link + '/image.png',
+        author: conf.app.author.name,
+        managingEditor: conf.app.author.name,
+        webMaster: conf.app.author.name,
+        copyright: copyright,
+        language: 'en',
+//        categories: ['Category 1','Category 2','Category 3'],
+        pubDate: moment(),
+        ttl: '60'
+    });
+
+
+    Post.find().then(
+
+        function onSuccess(posts) {
+
+            _.each(posts, function (post) {
+
+                feed.item({
+                    title: post.title,
+                    description: post.summary_html,
+                    url: link + '/posts' + post.slug,
+                    categories: post.categories,
+                    author: post.author.name,
+                    date: post.published_at
+                });
+            });
+
+            res.set('Content-Type', 'text/xml');
+            res.send(feed.xml());
+        },
+
+        function onError(err) {
+
+            return res.error(err);
+        }
+    );
 };
 
 module.exports = new WebController();

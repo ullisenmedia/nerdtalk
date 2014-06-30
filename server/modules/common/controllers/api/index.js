@@ -1,33 +1,47 @@
 'use strict'
 
 var util = require('util'),
-    _ = require('underscore'),
-    tweets = require('../../models/tweets'),
-    Controller = require('../../lib/controller');
-
-var ROUTE_PREFIX = '/api/tweets/:user';
+    config = require('../../../../config'),
+    Post = require('../../../common/models/post'),
+    datastore = require('../../../../lib/datastore'),
+    Controller = require('../../../../lib/controller');
 
 var APIController = function() {
 
-    Controller.call(this, ROUTE_PREFIX);
+    Controller.call(this);
 };
 
 util.inherits(APIController, Controller);
 
-APIController.prototype.get = function(req, res) {
+APIController.prototype.initialize = function(app) {
 
-    tweets.getUserTweets({
-        user: req.user,
-        limit: req.filters.limit
+    app.get('/api/tags/:tag', this.middleware, this.tagHandler);;
+};
 
-    }).then(function(data) {
+APIController.prototype.middleware = function(req, res, next) {
 
-            res.json(data);
+    if(!req.params.slug) {
 
-    }).fail(function(err) {
+        return res.status(405).send('Invalid request');
+    }
 
-            res.error(err);
-    });
+    next();
+};
+
+APIController.prototype.tagHandler = function(req, res) {
+
+    Post.findByTag(req.params.tag).then(
+
+        function onSuccess(posts) {
+
+            return res.json(posts);
+        },
+
+        function onError(err) {
+
+            return res.error(err);
+        }
+    );
 };
 
 module.exports = new APIController();

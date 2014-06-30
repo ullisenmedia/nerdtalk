@@ -22,7 +22,7 @@ WebController.prototype.middleware = function(req, res, next) {
 
     if(!req.isCrawler) {
 
-        res.render('index.angular.html', {title: config.app.name});
+        res.render('index.angular.html', {title: config.app.title});
 
     }  else {
 
@@ -36,7 +36,7 @@ WebController.prototype.getHandler = function(req, res) {
 
         function onSuccess(post) {
 
-            return res.render('post', {title: config.app.name, post: post});
+            return res.render('post', {title: config.app.title, post: post});
         },
 
         function onError(err) {

@@ -31,19 +31,7 @@ APIController.prototype.middleware = function(req, res, next) {
 
 APIController.prototype.getHandler = function(req, res) {
 
-    var filter = {
-        propertyFilter: {
-            property: {
-                name: 'tags'
-            },
-            value: {
-                stringValue: 'android'
-            },
-            operator: 'EQUAL'
-        }
-    };
-
-    Post.find(filter).then(
+    Post.find().then(
 
         function onSuccess(posts) {
 
