@@ -40,18 +40,20 @@ module.exports = {
 
     queryFilter: function() {
 
+        var MAX_LIMIT = 4;
+
         return function(req, res, next) {
 
             // Limit
             var limit = req.query.limit ? parseInt(req.query.limit) : DEFAULT_LIMIT;
-            limit = limit <= 100 ? limit : 100; // Max limit
+            limit = limit <= MAX_LIMIT ? limit : MAX_LIMIT; // Max limit
 
-            // Skip
-            var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+            // offset
+            var offset = req.query.offset ? parseInt(req.query.offset) : 0;
 
             req.filters = {
                 limit: limit,
-                skip: skip
+                offset: offset
             };
 
             next();

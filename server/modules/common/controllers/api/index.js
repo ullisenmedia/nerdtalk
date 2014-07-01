@@ -30,7 +30,7 @@ APIController.prototype.middleware = function(req, res, next) {
 
 APIController.prototype.tagHandler = function(req, res) {
 
-    Post.findByTag(req.params.tag).then(
+    Post.findByTag(req.params.tag, req.filter).then(
 
         function onSuccess(posts) {
 

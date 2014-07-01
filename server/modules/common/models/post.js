@@ -10,26 +10,27 @@ var Post = function () {
 
 util.inherits(Post, Model);
 
-Post.prototype.find = function (filter, isGQL) {
+Post.prototype.find = function (filter, disableOrder) {
 
-    if (!filter) {
+    var filter = filter || {};
 
-        var filter = {order: [
+    if (!disableOrder) {
+
+        filter.order = [
             {
                 property: {
                     name: 'updated_at'
                 },
                 direction: 'DESCENDING'
             }
-        ]
-        };
+        ];
     }
 
-    return Post.super_.prototype.find(filter, isGQL || false, 'Post');
+    return Post.super_.prototype.find(filter, false, 'Post');
 }
 ;
 
-Post.prototype.findByTag = function (tag) {
+Post.prototype.findByTag = function (tag, dataFilter) {
 
     var filter = {
         propertyFilter: {
@@ -40,18 +41,15 @@ Post.prototype.findByTag = function (tag) {
                 stringValue: tag
             },
             operator: 'EQUAL'
-        },
-        order: [
-            {
-                property: {
-                    name: 'updated_at'
-                },
-                direction: 'DESCENDING'
-            }
-        ]
+        }
     };
 
-    Post.find({filter: filter}).then(
+    if (filter) {
+
+        filter = _.extend(dataFilter, filter)
+    }
+
+    Post.find({filter: filter}, true).then(
 
         function onSuccess(posts) {
 
@@ -81,7 +79,7 @@ Post.prototype.findBySlug = function (slug) {
         }
     };
 
-    this.find({filter: filter}).then(
+    this.find({filter: filter}, true).then(
 
         function onSuccess(result) {
 

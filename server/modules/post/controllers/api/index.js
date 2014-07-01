@@ -31,7 +31,7 @@ APIController.prototype.middleware = function(req, res, next) {
 
 APIController.prototype.getHandler = function(req, res) {
 
-    Post.find().then(
+    Post.find(req.filters).then(
 
         function onSuccess(posts) {
 
