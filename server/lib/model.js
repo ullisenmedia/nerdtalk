@@ -36,7 +36,7 @@ Model.prototype = {
         return deferred.promise;
     },
 
-    find: function (filter, isGQL) {
+    find: function (filter, isGQL, type) {
 
         var deferred = Q.defer();
 
@@ -48,9 +48,7 @@ Model.prototype = {
 
         } else {
 
-//            finalQuery = {"kinds": [{"name": this.type}]};
-//            finalQuery.filter = filter;
-            finalQuery = {query: _.extend({filter: filter}, {"kinds": [{"name": this.type}]})};
+            finalQuery = {query: _.extend(filter, {"kinds": [{"name": this.type || type}]})};
         }
 
         ds.runQuery(finalQuery).then(

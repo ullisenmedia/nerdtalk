@@ -3,14 +3,33 @@ var Q = require('Q'),
     _ = require('underscore'),
     Model = require('../../../lib/model');
 
-var Post = function() {
+var Post = function () {
 
     Model.call(this, 'Post');
 };
 
 util.inherits(Post, Model);
 
-Post.prototype.findByTag = function(tag) {
+Post.prototype.find = function (filter, isGQL) {
+
+    if (!filter) {
+
+        var filter = {order: [
+            {
+                property: {
+                    name: 'updated_at'
+                },
+                direction: 'DESCENDING'
+            }
+        ]
+        };
+    }
+
+    return Post.super_.prototype.find(filter, isGQL || false, 'Post');
+}
+;
+
+Post.prototype.findByTag = function (tag) {
 
     var filter = {
         propertyFilter: {
@@ -21,10 +40,18 @@ Post.prototype.findByTag = function(tag) {
                 stringValue: tag
             },
             operator: 'EQUAL'
-        }
+        },
+        order: [
+            {
+                property: {
+                    name: 'updated_at'
+                },
+                direction: 'DESCENDING'
+            }
+        ]
     };
 
-    Post.find(filter).then(
+    Post.find({filter: filter}).then(
 
         function onSuccess(posts) {
 
@@ -38,7 +65,7 @@ Post.prototype.findByTag = function(tag) {
     );
 };
 
-Post.prototype.findBySlug = function(slug) {
+Post.prototype.findBySlug = function (slug) {
 
     var deferred = Q.defer();
 
@@ -48,19 +75,19 @@ Post.prototype.findBySlug = function(slug) {
                 name: 'slug'
             },
             value: {
-              stringValue: slug
+                stringValue: slug
             },
             operator: 'EQUAL'
         }
     };
 
-    this.find(filter).then(
+    this.find({filter: filter}).then(
 
         function onSuccess(result) {
 
             var post = {};
 
-            if(result && result[0]) {
+            if (result && result[0]) {
 
                 post = result[0];
             }
