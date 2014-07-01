@@ -1,6 +1,7 @@
 'use strict'
 
 var util = require('util'),
+    lib = require('../../../../lib/util'),
     config = require('../../../../config'),
     Post = require('../../../common/models/post'),
     datastore = require('../../../../lib/datastore'),
@@ -32,9 +33,12 @@ APIController.prototype.tagHandler = function(req, res) {
 
     Post.findByTag(req.params.tag, req.filter).then(
 
-        function onSuccess(posts) {
+        function onSuccess(data) {
 
-            return res.json(posts);
+            return res.json({
+                posts: data.posts,
+                paging: {next: lib.toPage(req.fullUrl, data.paging.next)}
+            });
         },
 
         function onError(err) {

@@ -99,14 +99,15 @@ Datastore.prototype = {
                 return deferred.reject(err);
             }
 
-            var entities = [];
+            var data = {entities: [], paging: {}};
 
             if (result.batch && result.batch.entityResults.length > 0) {
 
-                entities = result.batch.entityResults;
+                data.entities = result.batch.entityResults;
+                data.paging = {next: result.batch.endCursor};
             }
 
-            deferred.resolve(entities);
+            deferred.resolve(data);
 
         });
 
@@ -124,14 +125,17 @@ Datastore.prototype = {
                 return deferred.reject(err);
             }
 
-            var entity = {};
+            var data = {};
 
             if (result.found.length > 0) {
 
-                entity = result.found[0].entity;
+                data = {
+                    entity: result.found[0].entity,
+                    paging: {next: result.endCursor}
+                };
             }
 
-            deferred.resolve(entity);
+            deferred.resolve(data);
 
         });
 

@@ -13,9 +13,10 @@ nerdtalk.controller('PostListViewController', ['$scope', '$routeParams', '$locat
 
             Post.find().then(
 
-                function onSuccess(posts) {
+                function onSuccess(data) {
 
-                    $scope.posts = posts;
+                    $scope.posts = data.posts;
+                    $scope.paging = data.paging;
                 },
 
                 function onError(err) {
@@ -26,6 +27,10 @@ nerdtalk.controller('PostListViewController', ['$scope', '$routeParams', '$locat
         };
 
         var addEventListeners = function () {
+
+            $scope.onNextPage = function() {
+
+            };
 
             $scope.onItemSelected = function (selectedItem) {
 

@@ -44,17 +44,31 @@ module.exports = {
 
         return function(req, res, next) {
 
+            // Request url
+            req.fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+
+            // Filters
+            req.filters = {};
+
             // Limit
             var limit = req.query.limit ? parseInt(req.query.limit) : DEFAULT_LIMIT;
             limit = limit <= MAX_LIMIT ? limit : MAX_LIMIT; // Max limit
 
-            // offset
+            req.filters.limit = limit;
+
+            // Offset
             var offset = req.query.offset ? parseInt(req.query.offset) : 0;
 
-            req.filters = {
-                limit: limit,
-                offset: offset
-            };
+            if(offset > 0) {
+
+                req.filters.offset = offset;
+            }
+
+            // Next Cursor
+            if(req.next) {
+
+                req.filters.startCursor = req.next;
+            }
 
             next();
         };

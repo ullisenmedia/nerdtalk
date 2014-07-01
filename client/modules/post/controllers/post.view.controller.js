@@ -12,7 +12,8 @@ nerdtalk.controller('PostViewController', ['$scope', '$location', '$route', '$ro
 
                 function onSuccess(data) {
 
-                    $scope.post = data;
+                    $scope.post = data.post;
+                    $scope.paging = data.paging;
                 },
 
                 function onError(err) {

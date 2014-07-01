@@ -1,6 +1,6 @@
 nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $http, $q) {
 
-    var url = '/api/posts';
+    var url = '/api/posts/?stuff=cool';
 
     var find = function() {
 

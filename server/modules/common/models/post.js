@@ -12,6 +12,8 @@ util.inherits(Post, Model);
 
 Post.prototype.find = function (filter, disableOrder) {
 
+    var deferred = Q.defer();
+
     var filter = filter || {};
 
     if (!disableOrder) {
@@ -26,11 +28,29 @@ Post.prototype.find = function (filter, disableOrder) {
         ];
     }
 
-    return Post.super_.prototype.find(filter, false, 'Post');
+    Post.super_.prototype.find(filter, false, 'Post').then(
+
+        function onSuccess(result) {
+
+            deferred.resolve({
+                posts: result.entities,
+                paging: result.paging
+            });
+        },
+
+        function onError(err) {
+
+            deferred.reject(err);
+        }
+    );
+
+    return deferred.promise;
 }
 ;
 
 Post.prototype.findByTag = function (tag, dataFilter) {
+
+    var deferred = Q.defer();
 
     var filter = {
         propertyFilter: {
@@ -51,16 +71,21 @@ Post.prototype.findByTag = function (tag, dataFilter) {
 
     Post.find({filter: filter}, true).then(
 
-        function onSuccess(posts) {
+        function onSuccess(result) {
 
-            return res.json(posts);
+            deferred.resolve({
+                posts: result.entities,
+                paging: result.paging
+            });
         },
 
         function onError(err) {
 
-            return res.error(err);
+            deferred.reject(err);
         }
     );
+
+    return deferred.promise;
 };
 
 Post.prototype.findBySlug = function (slug) {
@@ -83,14 +108,14 @@ Post.prototype.findBySlug = function (slug) {
 
         function onSuccess(result) {
 
-            var post = {};
+            var data = {entity: {}, paging: result.paging};
 
-            if (result && result[0]) {
+            if (data.entities.length > 0) {
 
-                post = result[0];
+                data.post = result.entities[0];
             }
 
-            deferred.resolve(post);
+            deferred.resolve(data);
         },
 
         function onError(err) {

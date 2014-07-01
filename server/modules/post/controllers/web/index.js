@@ -2,6 +2,7 @@
 
 var util = require('util'),
 //    cons = require('consolidate'),
+    lib = require('../../../../lib/util'),
     config = require('../../../../config'),
     Post = require('../../../common/models/post'),
     Controller = require('../../../../lib/controller');
@@ -34,9 +35,12 @@ WebController.prototype.getHandler = function(req, res) {
 
     Post.findBySlug(req.params.slug).then(
 
-        function onSuccess(post) {
+        function onSuccess(data) {
 
-            return res.render('post', {title: config.app.title, post: post});
+            return res.render('post', {title: config.app.title, data: {
+                post: data.post,
+                paging: {next: lib.toPage(req.fullUrl, data.paging.next)}
+            }});
         },
 
         function onError(err) {

@@ -3,6 +3,7 @@
 var util = require('util'),
     config = require('../../../../config'),
     Post = require('../../../common/models/post'),
+    lib = require('../../../../lib/util'),
     datastore = require('../../../../lib/datastore'),
     Controller = require('../../../../lib/controller');
 
@@ -33,9 +34,12 @@ APIController.prototype.getHandler = function(req, res) {
 
     Post.find(req.filters).then(
 
-        function onSuccess(posts) {
+        function onSuccess(data) {
 
-            return res.json(posts);
+            return res.json({
+                posts: data.posts,
+                paging: {next: lib.toPage(req.fullUrl, data.paging.next)}
+            });
         },
 
         function onError(err) {
@@ -49,9 +53,12 @@ APIController.prototype.postHandler = function(req, res) {
 
     Post.findBySlug(req.params.slug).then(
 
-        function onSuccess(post) {
+        function onSuccess(data) {
 
-            return res.json(post);
+            return res.json({
+                post: data.post,
+                paging: {next: lib.toPage(req.fullUrl,  data.paging.next)}
+            });
         },
 
         function onError(err) {

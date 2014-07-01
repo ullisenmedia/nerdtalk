@@ -7,6 +7,7 @@ var util = require('util'),
     RSS = require('rss'),
     conf = require('../../../../config'),
     Post = require('../../models/post'),
+    lib = require('../../../../lib/util'),
     Controller = require('../../../../lib/controller');
 
 var WebController = function () {
@@ -40,9 +41,12 @@ WebController.prototype.getHandler = function (req, res) {
 
     Post.find(req.filters).then(
 
-        function onSuccess(posts) {
+        function onSuccess(data) {
 
-            return res.render('index', {title: config.app.title, posts: posts});
+            return res.render('index', {title: conf.app.title, data: {
+                posts: data.posts,
+                paging: {next: lib.toPage(req.fullUrl, data.paging.next)}
+            }});
         },
 
         function onError(err) {
@@ -62,7 +66,6 @@ WebController.prototype.rssHandler = function (req, res) {
     var link = req.protocol + '://' + req.get('host');
     var copyright = util.format('All rights reserved %s, %s', moment().year(), conf.app.author.name);
 
-    /* lets create an rss feed */
     var feed = new RSS({
         title: conf.app.title,
         description: conf.app.description,
@@ -74,7 +77,6 @@ WebController.prototype.rssHandler = function (req, res) {
         webMaster: conf.app.author.name,
         copyright: copyright,
         language: 'en',
-//        categories: ['Category 1','Category 2','Category 3'],
         pubDate: moment(),
         ttl: '60'
     });

@@ -22,9 +22,12 @@ Model.prototype = {
 
         ds.lookup({keys: [key]}).then(
 
-            function onSuccess(entity) {
+            function onSuccess(data) {
 
-                deferred.resolve(Model.toObject(entity.properties));
+                deferred.resolve({
+                    entity: Model.toObject(data.entity.properties),
+                    paging: data.paging
+                });
             },
 
             function onError(err) {
@@ -53,9 +56,12 @@ Model.prototype = {
 
         ds.runQuery(finalQuery).then(
 
-            function onSuccess(entities) {
+            function onSuccess(data) {
 
-                deferred.resolve(Model.toArray(entities));
+                deferred.resolve({
+                    entities: Model.toArray(data.entities),
+                    paging: data.paging
+                });
             },
 
             function onError(err) {
@@ -101,11 +107,7 @@ Model.toObject = function (properties, isArray) {
 
             result[key] = Model.toObject(property.value, true);
 
-        } /*else if (property.type === 'dateTimeValue') {
-
-            result[key] = moment(property.value);
-
-        }*/ else {
+        } else {
 
             result[key] = property.value;
         }
