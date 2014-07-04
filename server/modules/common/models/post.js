@@ -110,9 +110,9 @@ Post.prototype.findBySlug = function (slug) {
 
             var data = {entity: {}, paging: result.paging};
 
-            if (data.entities.length > 0) {
+            if (result.posts.length > 0) {
 
-                data.post = result.entities[0];
+                data.post = result.posts[0];
             }
 
             deferred.resolve(data);

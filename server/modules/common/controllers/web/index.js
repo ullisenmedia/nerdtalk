@@ -84,9 +84,9 @@ WebController.prototype.rssHandler = function (req, res) {
 
     Post.find().then(
 
-        function onSuccess(posts) {
+        function onSuccess(data) {
 
-            _.each(posts, function (post) {
+            _.each(data.posts, function (post) {
 
                 feed.item({
                     title: post.title,

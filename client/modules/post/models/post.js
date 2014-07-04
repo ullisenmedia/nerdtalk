@@ -1,6 +1,6 @@
 nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $http, $q) {
 
-    var url = '/api/posts/?stuff=cool';
+    var url = '/api/posts';
 
     var find = function() {
 
@@ -35,7 +35,7 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
 
             if(post) {
 
-                deferred.resolve(post);
+                deferred.resolve({post: post});
 
             }
         }

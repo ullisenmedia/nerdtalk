@@ -12,7 +12,7 @@ nerdtalk.filter('now', function() {
 
         } else {
 
-            now = moment(date).format('MMM DD, YYYY');
+            now = moment(date).format('MMM DD, YYYY h:mmA');
         }
 
         return now;

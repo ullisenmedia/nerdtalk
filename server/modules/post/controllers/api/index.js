@@ -16,8 +16,8 @@ util.inherits(APIController, Controller);
 
 APIController.prototype.initialize = function(app) {
 
-    app.get('/api/posts', this.getHandler);
     app.get('/api/posts/:slug', this.middleware, this.postHandler);
+    app.get('/api/posts', this.getHandler);
 };
 
 APIController.prototype.middleware = function(req, res, next) {
