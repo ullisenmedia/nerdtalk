@@ -1,4 +1,5 @@
 var url = require('url'),
+    safe = require('urlsafe-base64');
     qs = require('querystring');
 
 module.exports = {
@@ -10,5 +11,9 @@ module.exports = {
         urlObj.search = '?' + qs.stringify(urlObj.query);
 
         return url.format(urlObj);
+    },
+    toHTML: function(html) {
+
+        return safe.decode(html).toString();
     }
 };

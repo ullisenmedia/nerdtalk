@@ -6,9 +6,9 @@ var DEFAULT_LIMIT = 10;
 
 module.exports = {
 
-    notFound: function() {
+    notFound: function () {
 
-        return function(req, res) {
+        return function (req, res) {
 
             if (req.accepts('html')) {
 
@@ -28,9 +28,9 @@ module.exports = {
 
     },
 
-    crawlerDetect: function() {
+    crawlerDetect: function () {
 
-        return function(req, res, next) {
+        return function (req, res, next) {
 
             req.isCrawler = req.query.hasOwnProperty('_escaped_fragment_');
 
@@ -38,11 +38,11 @@ module.exports = {
         }
     },
 
-    queryFilter: function() {
+    queryFilter: function () {
 
         var MAX_LIMIT = 4;
 
-        return function(req, res, next) {
+        return function (req, res, next) {
 
             // Request url
             req.fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -59,22 +59,38 @@ module.exports = {
             // Offset
             var offset = req.query.offset ? parseInt(req.query.offset) : 0;
 
-            if(offset > 0) {
+            if (offset > 0) {
 
                 req.filters.offset = offset;
             }
 
             // Next Cursor
-            if(req.next) {
+            if (req.next) {
 
-                req.filters.startCursor = req.next;
+                req.filters.startCursor = req.query.next;
+            }
+
+            // Search Query
+            if (req.query.q) {
+
+                req.filters.filter = {
+                    propertyFilter: {
+                        property: {
+                            name: 'keywords'
+                        },
+                        value: {
+                            stringValue: req.query.q.toLowerCase()
+                        },
+                        operator: 'EQUAL'
+                    }
+                };
             }
 
             next();
         };
     },
 
-    cors: function() {
+    cors: function () {
 
         return function (req, res, next) {
 

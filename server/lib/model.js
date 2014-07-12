@@ -1,6 +1,7 @@
 var Q = require('Q'),
     _ = require('underscore'),
     moment = require('moment'),
+    util = require('./util'),
     ds = require('./datastore');
 
 var Model = function (type) {
@@ -11,6 +12,11 @@ var Model = function (type) {
 Model.prototype = {
 
     type: null,
+
+    transaction: function() {
+
+        return ds.beginTransaction();
+    },
 
     findById: function (id) {
 
@@ -39,7 +45,7 @@ Model.prototype = {
         return deferred.promise;
     },
 
-    find: function (filter, isGQL, type) {
+    find: function (filter, isGQL, type, tx) {
 
         var deferred = Q.defer();
 
@@ -52,6 +58,11 @@ Model.prototype = {
         } else {
 
             finalQuery = {query: _.extend(filter, {"kinds": [{"name": this.type || type}]})};
+        }
+
+        if(tx) {
+
+            finalQuery.readOptions = {transaction: tx};
         }
 
         ds.runQuery(finalQuery).then(
@@ -106,6 +117,10 @@ Model.toObject = function (properties, isArray) {
         } else if(property.type === 'listValue') {
 
             result[key] = Model.toObject(property.value, true);
+
+        } else if(property.type === 'blobValue') {
+
+            result[key] = util.toHTML(property.value);
 
         } else {
 

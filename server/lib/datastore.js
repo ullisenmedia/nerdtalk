@@ -1,5 +1,6 @@
 var conf = require('../config'),
     Q = require('q'),
+//    Buffer = require('buffer'),
     gapis = require('googleapis')
 
 
@@ -17,8 +18,6 @@ Datastore.prototype = {
     credentials: null,
 
     initialize: function() {
-
-        console.log(conf.pem);
 
         this.credentials = new gapis.auth.JWT(
             conf.apis.datastore.service_account,
@@ -88,7 +87,25 @@ Datastore.prototype = {
         return deferred.promise;
     },
 
-    runQuery: function(query) {
+    beginTransaction: function() {
+
+        var deferred = Q.defer();
+
+        this.ds.beginTransaction({datasetId: conf.apis.datastore.dataset_id}, {}).execute(function(err, result) {
+
+            if(err) {
+
+                return deferred.reject(err);
+            }
+
+            deferred.resolve(result.transaction);
+
+        });
+
+        return deferred.promise;
+    },
+
+    runQuery: function(query, tx) {
 
         var deferred = Q.defer();
 
