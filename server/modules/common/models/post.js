@@ -1,5 +1,5 @@
 var Q = require('Q'),
-    moment =require('moment'),
+    moment = require('moment'),
     util = require('util'),
     _ = require('underscore'),
     Model = require('../../../lib/model');
@@ -11,7 +11,7 @@ var Post = function () {
 
 util.inherits(Post, Model);
 
-Post.prototype.search = function(filter) {
+Post.prototype.search = function (filter) {
 
     return this.find(filter, true);
 };

@@ -17,7 +17,6 @@ util.inherits(APIController, Controller);
 APIController.prototype.initialize = function(app) {
 
     app.get('/api/posts/:slug', this.middleware, this.postHandler);
-    app.get('/api/search', this.searchHandler);
     app.get('/api/posts', this.getHandler);
 };
 
@@ -29,25 +28,6 @@ APIController.prototype.middleware = function(req, res, next) {
     }
 
     next();
-};
-
-APIController.prototype.searchHandler = function(req, res) {
-
-    Post.search(req.filters).then(
-
-        function onSuccess(data) {
-
-            return res.json({
-                posts: data.posts,
-                paging: {next: lib.toPage(req.fullUrl, data.paging.next)}
-            });
-        },
-
-        function onError(err) {
-
-            return res.error(err);
-        }
-    );
 };
 
 APIController.prototype.getHandler = function(req, res) {
