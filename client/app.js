@@ -18,6 +18,10 @@ var nerdtalk = angular.module('nerdtalk', [
                     templateUrl: '/modules/post/views/post.list.view.html',
                     controller: 'PostListViewController'
                 })
+                .when('/search', {
+                    templateUrl: '/modules/search/views/search.view.html',
+                    controller: 'SearchViewController'
+                })
                 .when('/posts/:slug', {
 
                     templateUrl: '/modules/post/views/post.view.html',

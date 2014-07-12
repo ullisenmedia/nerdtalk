@@ -2,24 +2,57 @@ nerdtalk.directive('ntSearch', ['$log', function($log) {
 
     return {
         restrict: 'A',
-        scope: {},
+        scope: {
+            onSearch: "&ntOnSearch"
+        },
 
         link: function(scope, el) {
 
             var searchInput = el.children('[skin-part="searchInput"]');
 
-            searchInput.on('focus', function() {
+            var init = function() {
 
-                $log.debug('clicked');
-                el.addClass('search-state-active')
+                addEventListeners();
+            };
 
-            });
+            var addEventListeners = function() {
 
-            searchInput.on('blur', function() {
+                searchInput.on('focus', function() {
 
-                el.removeClass('search-state-active');
+                    $log.debug('clicked');
+                    el.addClass('search-state-active')
 
-            });
+                });
+
+                searchInput.on('blur', function() {
+
+                    el.removeClass('search-state-active');
+
+                });
+
+                searchInput.on('keypress', function(e) {
+
+                    var code = e.keyCode || e.which;
+
+                    if(code === 13) {
+
+                        if(scope.onSearch) {
+
+                            scope.$apply(function() {
+
+                                scope.onSearch({keyword: searchInput.val()});
+                            });
+
+                        }
+
+                        $log.debug('search: ' + searchInput.val());
+                    }
+
+                });
+
+            };
+
+             init();
 
         }
     }
