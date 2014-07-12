@@ -16,23 +16,22 @@ util.inherits(APIController, Controller);
 
 APIController.prototype.initialize = function(app) {
 
-    app.get('/api/tags/:tag', this.middleware, this.tagHandler);;
+    app.get('/api/search', this.getHandler);
 };
 
 APIController.prototype.middleware = function(req, res, next) {
 
-    if(!req.params.slug) {
+    if(!req.q) {
 
-        return res.status(405).send('Invalid request');
+        return res.status(200).send({posts: []});
     }
 
     next();
 };
 
+APIController.prototype.getHandler = function(req, res) {
 
-APIController.prototype.tagHandler = function(req, res) {
-
-    Post.findByTag(req.params.tag, req.filter).then(
+    Post.search(req.filters).then(
 
         function onSuccess(data) {
 

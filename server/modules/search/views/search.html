@@ -1,0 +1,61 @@
+{% extends '../../common/views/layout.html' %}
+
+{% block title %}{{data.post.title}}{% endblock %}
+
+{% block mainview %}
+<div id="main-view" class="column">
+    <div id="post">
+
+        <div class="header">
+            <img src="{{data.post.image}}">
+
+            <div class="info">
+
+                <h2>{{data.post.title}}</h2>
+                <span>{{data.post.published_at}}</span>
+
+            </div>
+
+        </div>
+
+        <div class="menu menu-vertical menu-pink">
+            <ul>
+                <li><a href="/">x</a></li>
+                <li><a href="#">&#10095;</a></li>
+                <li><a href="#">&#10094;</a></li>
+                <li><a href="#coments">122</a></li>
+            </ul>
+        </div>
+
+        <div class="menu menu-horizontal menu-social">
+            <ul>
+                <li>
+                    <a href="http://www.facebook.com/sharer.php?u=http://google.com?q={{data.post.slug}}"
+                       class="icon icon-facebook-white icon-facebook-state-iconcolor"></a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/share?original_referer={{data.post.slug}}&source=tweetbutton&text={{data.post.title}}&url={{data.post.slug}}&via=ullisenmedia"
+                       class="icon icon-twitter-white icon-twitter-state-iconcolor"></a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/share?url={{data.post.slug}}"
+                       class="icon icon-gplus-white icon-gplus-state-iconcolor"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+
+            <div class="html">
+                {% autoescape false %}
+                    {{data.post.html}}
+                {% endautoescape %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="background-blur"></div>
+{% endblock %}

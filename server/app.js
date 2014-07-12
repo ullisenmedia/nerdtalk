@@ -11,6 +11,7 @@ var express = require('express'),
     path = require('path'),
     datastore = require('./lib/datastore'),
     Application = require('./lib/application'),
+    SearchApplication = require('./modules/search'),
     PostApplication = require('./modules/post'),
     CommonApplication = require('./modules/common');
 
@@ -39,6 +40,9 @@ NTApplication.prototype.initialize = function (params) {
 
     var postApp = new PostApplication();
     this.addMdoule(postApp.app);
+
+    var searchApp = new SearchApplication();
+    this.addMdoule(searchApp.app);
 
     this.configure();
 
