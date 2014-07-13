@@ -19,8 +19,8 @@ var nerdtalk = angular.module('nerdtalk', [
                     controller: 'PostListViewController'
                 })
                 .when('/search', {
-                    templateUrl: '/modules/search/views/search.view.html',
-                    controller: 'SearchViewController'
+                    templateUrl: '/modules/search/views/search.list.view.html',
+                    controller: 'SearchListViewController'
                 })
                 .when('/posts/:slug', {
 

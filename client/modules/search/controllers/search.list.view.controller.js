@@ -1,9 +1,10 @@
-nerdtalk.controller('SearchViewController', ['$scope', '$location', '$route', '$routeParams', '$log', 'Post',
+nerdtalk.controller('SearchListViewController', ['$scope', '$location', '$route', '$routeParams', '$log', 'Post',
     function ($scope, $location, $route, $routeParams, $log, Post) {
 
         var init = function() {
 
             search();
+            addEventListeners();
         };
 
         var search = function() {
@@ -21,6 +22,19 @@ nerdtalk.controller('SearchViewController', ['$scope', '$location', '$route', '$
                     $log.error(err);
                 }
             );
+        };
+
+        var addEventListeners = function () {
+
+            $scope.onNextPage = function() {
+
+            };
+
+            $scope.onItemSelected = function (selectedItem) {
+
+                $location.url('posts/' + selectedItem.slug);
+
+            };
         };
 
         init();

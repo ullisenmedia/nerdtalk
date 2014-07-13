@@ -1,0 +1,19 @@
+<div id="search">
+
+    <div class="menu menu-vertical">
+        <ul>
+            <li ng-repeat="item in results"
+                nt-search-list-item
+                nt-slug="item.slug"
+                nt-on-selected="onItemSelected(selectedItem);"
+                class="item">
+                <div>
+                    <h2>{[{item.title}]}</h2>
+                    <span class="time">{[{item.updated_at|now}]}</span>
+                    <div ng-bind-html="item.summary_html" class="html"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>
