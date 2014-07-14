@@ -6,6 +6,7 @@ var nerdtalk = angular.module('nerdtalk', [
         'ngSanitize',
         'ngAnimate',
 //        'ngMockE2E'
+        'akoenig.deckgrid'
     ])
     .config(['$routeProvider', '$locationProvider', '$interpolateProvider',
         function ($routeProvider, $locationProvider, $interpolateProvider) {

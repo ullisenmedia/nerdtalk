@@ -669,31 +669,26 @@ a.icon-gplus-state-iconcolor:hover {
     background: url("../img/background-blur.png");
 }
 
+.masonry { /* Masonry container */
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+    /*-moz-column-gap: 1em;*/
+    /*-webkit-column-gap: 1em;*/
+    /*column-gap: 1em;*/
+}
+
 #search {
 
     color: #fff;
-}
-
-#search ul li {
-    width: 400px;
-    height: 400px;
-    padding: 30px;
-    background-color: #333;
+    height: 100%;
+    white-space: normal;
+    max-width: 1280px;
 }
 
 
-#search .item .time {
-    width: 100%;
-    font-size: 14px;
-    font-weight: 200;
-    font-style: italic;
-}
-
-#search .item-state-active {
-
-    color: #000;
-    opacity: 1.0;
-    background-color: #ffffff !important;
+#search .item h2 {
+    font-size: 24px;
 }
 
 #search .item-state-active h2 {
@@ -704,28 +699,74 @@ a.icon-gplus-state-iconcolor:hover {
 #search .item {
     cursor: pointer;
     cursor: hand;
+    padding: 20px;
     background-color: #0a0a0a;
+    /*display: inline-block;*/
+    width: 100%;
+    min-height: 427px;
 }
 
-#search .item:nth-child(2n+0) {
+#search .item p {
+
+    max-width: 600px;
+    white-space: normal;
+}
+
+#search .item-bgcolor-1 {
     background-color: #121212;
 }
 
-#search .item:nth-child(3n+0) {
+#search .item-bgcolor-2 {
     background-color: #171717;
 }
 
-#search .item:nth-child(4n+0) {
+#search .item-bgcolor-3 {
     background-color: #1a1a1a;
 }
 
-#search .item:nth-child(5n+0) {
+#search .item-bgcolor-4 {
     background-color: #1f1f1f;
 }
 
-#search .item:nth-child(6n+0) {
+#search .item-bgcolor-5 {
     background-color: #232323;
 }
+
+#search .item-state-active {
+
+    color: #000;
+    opacity: 1.0;
+    background-color: #ffffff !important;
+}
+
+#search .item .time {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 200;
+    font-style: italic;
+}
+
+
+.deckgrid {
+
+    height: 100%;
+}
+
+.deckgrid[deckgrid]::before {
+    /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
+    content: '3 .column.column-1-3';
+    font-size: 0; /* See https://github.com/akoenig/angular-deckgrid/issues/14#issuecomment-35728861 */
+    visibility: hidden;
+}
+
+.deckgrid .column {
+    float: left;
+}
+
+.deckgrid .column-1-3 {
+    width: 33.333%;
+}
+
 
 
 /*#posts {*/

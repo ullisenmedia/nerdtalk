@@ -11,7 +11,16 @@ nerdtalk.directive('ntSearchListItem', ['$log', function($log) {
 
             var init = function() {
 
+                addBackgroundColor();
                 addEventListeners();
+            };
+
+
+            var addBackgroundColor = function() {
+
+                var index = Math.floor((Math.random() * 5) + 1);
+
+                el.addClass('item-bgcolor-' + index);
             };
 
             // Event Listeners
