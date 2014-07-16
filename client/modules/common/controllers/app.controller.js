@@ -1,12 +1,30 @@
-nerdtalk.controller('AppController', ['$scope', function ($scope) {
+nerdtalk.controller('AppController', ['$scope', '$log', '$document', 'App', 'Views',
+    function ($scope, $log, $document, App, Views) {
 
-    var init = function () {
+        // Methods
+        var init = function () {
 
-        $scope.sideMenuView = {template: {url: '/modules/common/views/partials/side.menu.html'}};
-        $scope.postView = {template: {url: '/modules/post/views/post.view.html', show: false}}
+            $scope.sideMenuView = Views.SIDE_MENU;
+            $scope.postView = Views.POST;
 
-    };
+            addEventListeners();
+        };
 
-    init();
+        // Event listeners
+        var addEventListeners = function () {
 
-}]);
+            $scope.$watch('appTitle', function onAppTitleChanged() {
+
+                var title = App.getAppTitle();
+
+                if (title) {
+
+                    $scope.title = title;
+                }
+
+            });
+        };
+
+        init();
+
+    }]);

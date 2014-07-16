@@ -1,4 +1,4 @@
-nerdtalk.directive('ntPostListView', ['$log', function($log) {
+nerdtalk.directive('ntPostListView', ['$log', 'App', 'AppInfo', 'ScrollState', function($log, App, AppInfo, ScrollState) {
 
     return {
 

@@ -1,4 +1,5 @@
-nerdtalk.directive('ntPostView', ['$animate', '$log', function($animate, $log) {
+nerdtalk.directive('ntPostView', ['$rootScope', '$animate', '$log', 'App', 'ScrollState',
+    function($rootScope, $animate, $log, App, ScrollState) {
 
     return {
 

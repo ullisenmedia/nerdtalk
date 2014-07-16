@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% block title %}{[{title}]}{% endblock %}
+
 {% block mainview %}
 <div id="side-bar-view"
      ng-controller="SideBarViewController"
@@ -15,5 +17,6 @@
 
 <div id="main-view"
      ng-view
+     nt-main-view
      class="column"></div>
 {% endblock %}

@@ -1,37 +1,53 @@
-nerdtalk.controller('PostViewController', ['$scope', '$location', '$route', '$routeParams', '$log', 'Post',
-    function ($scope, $location, $route, $routeParams, $log, Post) {
+nerdtalk.controller('PostViewController',
+    ['$scope', '$location', '$route', '$routeParams', '$log', 'Post', 'App', 'ScrollState',
+        function ($scope, $location, $route, $routeParams, $log, Post, App, ScrollState) {
 
-        var init = function () {
+            var init = function () {
 
-            getPost();
-        };
+                App.appBackgroundVisible(true);
+                App.setAppScrollState(ScrollState.VERTICAL);
 
-        var getPost = function () {
+                getPost();
+                addEventListener();
+            };
 
-            Post.findBySlug($routeParams.slug).then(
+            var getPost = function () {
 
-                function onSuccess(data) {
+                Post.findBySlug($routeParams.slug).then(
 
-                    $scope.post = data.post;
-                    $scope.paging = data.paging;
-                },
+                    function onSuccess(data) {
 
-                function onError(err) {
+                        $scope.post = data.post;
+                        $scope.paging = data.paging;
 
-                    $log.error(err);
-                }
-            );
-        };
+                        App.setAppTitle(data.post.title);
+                    },
 
-        $scope.closePost = function() {
+                    function onError(err) {
 
-            $location.url('/');
-        };
+                        $log.error(err);
+                    }
+                );
+            };
 
-        $scope.showComments = function()  {
+            var addEventListener = function() {
 
-        };
+                $scope.$on("$destroy",function() {
 
-        init();
+                    App.appBackgroundVisible(false);
+                });
 
-    }]);
+            };
+
+            $scope.closePost = function () {
+
+                $location.url('/');
+            };
+
+            $scope.showComments = function () {
+
+            };
+
+            init();
+
+        }]);

@@ -1,9 +1,13 @@
 // Post List Controller
 
-nerdtalk.controller('PostListViewController', ['$scope', '$routeParams', '$location', '$log', 'Post',
-    function ($scope, $routeParams, $location, $log, Post) {
+nerdtalk.controller('PostListViewController',
+    ['$scope', '$routeParams', '$location', '$log', 'App', 'AppInfo', 'ScrollState', 'Post',
+    function ($scope, $routeParams, $location, $log, App, AppInfo, ScrollState, Post) {
 
         var init = function () {
+
+            App.setAppTitle(AppInfo.NAME);
+            App.setAppScrollState(ScrollState.HORIZONTAL);
 
             listPosts();
             addEventListeners();

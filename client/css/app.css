@@ -172,6 +172,33 @@ a.icon-gplus-state-iconcolor:hover {
     background: url('http://static.tumblr.com/h4hpg15/Xn9n6xl8h/icon-gplus-color.png') no-repeat center;
 }
 
+.app-scroll-state-none {
+
+    overflow: hidden;
+}
+
+.app-scroll-state-both {
+
+    overflow: auto;
+}
+
+.app-scroll-state-vert {
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.app-scroll-state-horiz {
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.app-background {
+
+    background: url("../img/background-blur.png");
+}
+
 .column {
     /*display: -moz-inline-stack;*/
     /*display: inline-block;*/
@@ -399,7 +426,7 @@ a.icon-gplus-state-iconcolor:hover {
     height: 100%;
     hite-space: nowrap;
     -webkit-overflow-scrolling: touch;
-    overflow-x: scroll;
+    /*overflow-x: scroll;*/
     overflow-y: hidden;
     font-size: 0;
 }
@@ -680,7 +707,6 @@ a.icon-gplus-state-iconcolor:hover {
     height: 100%;
     white-space: normal;
     max-width: 1280px;
-    overflow-y: scroll;
 }
 
 
