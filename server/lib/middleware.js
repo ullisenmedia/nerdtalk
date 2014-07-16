@@ -40,7 +40,7 @@ module.exports = {
 
     queryFilter: function () {
 
-        var MAX_LIMIT = 4;
+        var MAX_LIMIT = 20;
 
         return function (req, res, next) {
 
