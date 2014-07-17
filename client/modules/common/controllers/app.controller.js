@@ -1,5 +1,5 @@
-nerdtalk.controller('AppController', ['$scope', '$log', '$document', 'App', 'Views',
-    function ($scope, $log, $document, App, Views) {
+nerdtalk.controller('AppController', ['$scope', '$log', '$document', 'App', 'Views', 'History',
+    function ($scope, $log, $document, App, Views, History) {
 
         // Methods
         var init = function () {

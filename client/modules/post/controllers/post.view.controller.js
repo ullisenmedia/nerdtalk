@@ -1,6 +1,6 @@
 nerdtalk.controller('PostViewController',
-    ['$scope', '$location', '$route', '$routeParams', '$log', 'Post', 'App', 'ScrollState',
-        function ($scope, $location, $route, $routeParams, $log, Post, App, ScrollState) {
+    ['$scope', '$location', '$route', '$routeParams', '$log', 'Post', 'App', 'History', 'ScrollState',
+        function ($scope, $location, $route, $routeParams, $log, Post, App, History, ScrollState) {
 
             var init = function () {
 
@@ -41,7 +41,9 @@ nerdtalk.controller('PostViewController',
 
             $scope.closePost = function () {
 
-                $location.url('/');
+                var url = History.getPreviousLocation() || '/';
+
+                $location.url(url);
             };
 
             $scope.showComments = function () {
