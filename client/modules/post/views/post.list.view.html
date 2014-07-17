@@ -1,5 +1,7 @@
 <div id="posts"
-     nt-post-list-view>
+     nt-post-list-view
+     nt-on-next-page="onNextPage();"
+     nt-is-loading="isLoading">
 
     <div ng-repeat="post in posts"
          nt-post-list-item

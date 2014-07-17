@@ -2,7 +2,10 @@ nerdtalk.directive('ntPostListView', ['$log', 'App', 'AppInfo', 'ScrollState', f
 
     return {
 
-        scope: {},
+        scope: {
+//            isLoading: '=ntIsLoading',
+            onNextPage: '&ntOnNextPage'
+        },
         link: function(scope, el) {
 
             var rawEl;
@@ -18,7 +21,28 @@ nerdtalk.directive('ntPostListView', ['$log', 'App', 'AppInfo', 'ScrollState', f
 
             var addEventListeners = function() {
 
-                hamster.wheel(function(event, delta, deltaX, deltaY) {
+                el.on('scroll', function onScroll() {
+
+                    if(!scope.$parent.isLoading) {
+
+                        var scrollWidth = rawEl.scrollWidth;
+                        var scrollLeft = rawEl.scrollLeft;
+
+                        var halfPoint = scrollWidth/2;
+
+                        if(scrollLeft >= halfPoint) {
+
+                            scope.$apply(function() {
+
+                                scope.$parent.isLoading = true;
+                                scope.onNextPage();
+                            });
+                        }
+                    };
+
+                });
+
+                hamster.wheel(function onWheelChange(e, delta, deltaX, deltaY) {
 
                     if(deltaY < 0 || deltaY > 0) {
 

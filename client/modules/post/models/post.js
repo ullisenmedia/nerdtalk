@@ -20,11 +20,33 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
         return deferred.promise;
     };
 
-    var find = function() {
+    var page = function(url) {
+
+        var deferred = $q.defer();
+
+        $http.get(url).then(
+
+            function onSucces(result) {
+
+                $rootScope.posts = result.data;
+
+                return deferred.resolve(result.data);
+            },
+
+            function onError(err) {
+
+                return deferred.reject(err);
+            }
+        );
+
+        return deferred.promise;
+    };
+
+    var find = function(params) {
 
        var deferred = $q.defer();
 
-       $http.get('/api/posts').then(
+       $http.get('/api/posts', {params: params}).then(
 
            function onSucces(result) {
 
@@ -79,6 +101,7 @@ nerdtalk.factory('Post', ['$rootScope', '$http', '$q', function($rootScope, $htt
 
     return {
         search: search,
+        page: page,
         find: find,
         findBySlug: findBySlug
     }
